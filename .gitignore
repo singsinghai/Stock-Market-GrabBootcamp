@@ -1,3 +1,4 @@
 backend/env
 backend/stock_app/settings.py
 **/__pycache__/
+backend/stock_app/.env

@@ -11,17 +11,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-z2p&)lv1o(8n+%))^9hhh65-h1umtaou441bjg3&*xn6+=^=s('
-
+FIREANT_BEARER_TOKEN = env('FIREANT_BEARER_TOKEN')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_extensions',
     'stock_app.stock_api'
 ]
 
