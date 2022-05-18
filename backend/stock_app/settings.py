@@ -78,11 +78,9 @@ WSGI_APPLICATION = 'stock_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-    	'NAME': 'hercules',
-        'USER': 'root',
-        'PASSWORD': 'baolavip1',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+    	'OPTIONS': {
+        	'read_default_file': '/etc/mysql/my.cnf',
+    	},
     }
 }
 
