@@ -14,12 +14,9 @@ class Company(models.Model):
 # Gia thi truong
 
 
-class MarketIndex(models.Model):
+class MarketPrice(models.Model):
     market_symbol = models.CharField(max_length=10)
     trading_date = models.DateTimeField()
-    price_high = models.FloatField()
-    price_low = models.FloatField()
-    price_open = models.FloatField()
     price_close = models.FloatField()
 
 # Bao cao tai chinh

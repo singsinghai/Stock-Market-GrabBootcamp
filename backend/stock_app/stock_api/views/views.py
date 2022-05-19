@@ -1,10 +1,14 @@
 from rest_framework import viewsets
 from ..models import StockPrice, Company
-from ..serializers import CompanySerializer, StockPriceSerializer
+from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer
 
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
+
+class MarketPriceViewSet(viewsets.ModelViewSet):
+    queryset = MarketPrice.objects.all()
+    serializers_class = MarketPriceSerializer
 
 class StockPriceViewSet(viewsets.ModelViewSet):
     queryset = StockPrice.objects.all()

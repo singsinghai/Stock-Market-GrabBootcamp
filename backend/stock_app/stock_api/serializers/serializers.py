@@ -1,10 +1,15 @@
 from rest_framework import serializers
-from ..models import Company, StockPrice, FinancialRatio, FinancialStatement, BusinessValuation
+from ..models import Company, MarketPrice, StockPrice, FinancialRatio, FinancialStatement, BusinessValuation
 
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
+        fields = "__all__"
+        
+class MarketPriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MarketPrice
         fields = "__all__"
 
 class StockPriceSerializer(serializers.ModelSerializer):
