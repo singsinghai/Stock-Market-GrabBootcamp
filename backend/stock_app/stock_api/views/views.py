@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from ..models import StockPrice, Company
+from ..models import StockPrice, Company, MarketPrice
 from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer
 
 class CompanyViewSet(viewsets.ModelViewSet):

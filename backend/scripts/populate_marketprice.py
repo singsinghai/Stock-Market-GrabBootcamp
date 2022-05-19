@@ -42,7 +42,7 @@ def run(*args):
         short_name, market_symbol = market.popitem()
         params = { "code": short_name }
         
-        api_response = requests.get(API_ENDPOINT, headers=HEADERS, params=params).json()
+        api_response = requests.get(api_endpoint, headers=HEADERS, params=params).json()
         
         for trading_date, price_close in api_response['listClose']:
             if price_close == None:
