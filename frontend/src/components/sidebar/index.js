@@ -2,16 +2,16 @@
 import {
     Box,
     CloseButton, Drawer,
-    DrawerContent, Flex, Icon, IconButton, Link, Text, useColorModeValue, useDisclosure
+    DrawerContent, Flex, Icon, IconButton, Text, useColorModeValue, useDisclosure
 } from '@chakra-ui/react';
 import React from 'react';
 import {
     FiCompass, FiHome, FiMenu, FiSettings, FiStar, FiTrendingUp
 } from 'react-icons/fi';
-import { Link as ReachLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar';
 
-// List of items on the sidebar
+// List of items on the sidebar, controlled by the NavItem component below
 const LinkItems = [
     { name: 'Trang chủ', icon: FiHome , to: "/"},
     { name: 'Bộ lọc cổ phiếu', icon: FiTrendingUp , to: "/xxx"},
@@ -74,7 +74,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
+                
                 <NavItem key={link.name} to={link.to} icon={link.icon}>
+                
                     {link.name}
                 </NavItem>
             ))}
@@ -85,7 +87,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 // Design and format the items in the sidebar, add their additional icons
 const NavItem = ({ to, icon, children, ...rest }) => {
     return (
-        <Link href={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link to={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex
                 align="center"
                 p="4"
