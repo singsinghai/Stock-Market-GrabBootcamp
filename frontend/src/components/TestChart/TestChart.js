@@ -3,44 +3,102 @@
 import React from "react";
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import data from "./response.json"
+import data from "./stockMarketHistoryPrice.json"
+
+// The requirements to save the chart into CSV, PNG, PDF,...
+require('highcharts/modules/exporting')(Highcharts);
+require('highcharts/modules/export-data')(Highcharts);
+require('highcharts/modules/annotations')(Highcharts);
 
 function TestChart() {
-    const dateToString = date => date.toDateString().slice(4); //Cắt mất cái days in week (Mon, Tue, Wed,...)
-    const DATE_SPLIT = 30;
+    const dateToString = date => date.toDateString().slice(4); //Hàm để cắt mất cái days in week (Mon, Tue, Wed,...)
+    let DATE_SPLIT = 91;
+    let COMPANY = "VN-INDEX"
 
+
+    // Lọc ra nhưng item là VN-INDEX
+    data = data.filter((item) => {
+        return item.marketSymbol === COMPANY
+    })
 
     // Ép kiểu cho date về dạng datetime
     data = data.map(item => ({
         ...item,
-        date: new Date(item.date)
+        tradingDate: new Date(item.tradingDate)
     }));
 
     // Sort theo date từ ngày xa nhất tới ngày gần nhất
-    data.sort((a, b) => a.date - b.date);
+    data.sort((a, b) => a.tradingDate - b.tradingDate);
 
+    // Bắt đầu định nghĩa các yếu tố của chart
     const options = {
-        
+        chart: {
+            zoomType: 'x'
+        },
+
         title: { text: 'Open Price vs Average Price over time' },
         subtitle: { text: 'Yor Forger No.1' },
         xAxis: {
-            categories: data.map(item => dateToString(item.date)),//data.map(r => r).reverse().map((item, i) => i % DATE_SPLIT === 0 ? dateToString(item.date) : '').reverse()
+            categories: data.map(item => dateToString(item.tradingDate)),
             tickInterval: DATE_SPLIT
         },
-        yAxis: {
-            type: 'logarithmic'
+
+        //Making gradient color looking for the area plot
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
         },
+
+        // This is the data to draw in the chart
         series: [
-            // {
-            //     name: 'Price Average',
-            //     data: data.map(item => item.priceAverage)
-            // }, 
             {
                 type: 'area',
-                name: 'Price Open',
-                data: data.map(item => item.priceOpen)
+                name: 'Price Close',
+                data: data.map(item => item.priceClose)
             }
-        ]
+        ],
+
+        // The export button
+        exporting: {
+            buttons: {
+                contextButton: {
+                    menuItems: [
+                        'viewFullscreen', 'separator', 'downloadPNG',
+                        'downloadSVG', 'downloadPDF', 'separator', 'downloadCSV'
+                    ]
+                },
+            },
+            enabled: true,
+        },
+        navigation: {
+            buttonOptions: {
+                align: 'right',
+                verticalAlign: 'top',
+                y: 0
+            }
+        },
     };
 
     return (
