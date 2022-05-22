@@ -3,7 +3,7 @@ import SidebarWithHeader from './components/sidebar';
 import TestChart from './components/TestChart/TestChart';
 //import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import TestComponent1 from './components/TestComponent1';
+import TestComponent1 from './components/TestComponent1/TestComponent1';
 
 
 
