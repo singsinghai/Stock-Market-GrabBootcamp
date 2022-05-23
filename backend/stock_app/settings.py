@@ -26,7 +26,7 @@ FIREANT_BEARER_TOKEN = env('FIREANT_BEARER_TOKEN')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['139.180.215.250','localhost']
 
 
 # Application definition
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_extensions',
-    'stock_app.stock_api'
+    'django_filters', 
+    'stock_app.stock_api',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -80,11 +82,18 @@ WSGI_APPLICATION = 'stock_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-    	'OPTIONS': {
-        	'read_default_file': '/etc/mysql/my.cnf',
-    	},
+        'OPTIONS': {
+            'read_default_file': '/etc/mysql/my.cnf',
+        },
     }
 }
+
+CRONJOBS = [
+    ('*/5 * * * *', 'stock_app.stock_api.cron.update_stock_price',
+     '>> /tmp/stock_price_update.log 2>&1'),
+    ('*/5 * * * *', 'stock_app.stock_api.cron.update_market_price',
+     '>> /tmp/market_price_update.log 2>&1')
+]
 
 
 # Password validation
@@ -105,6 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

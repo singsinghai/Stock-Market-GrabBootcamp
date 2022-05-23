@@ -19,6 +19,12 @@ class MarketPrice(models.Model):
     trading_date = models.DateTimeField()
     price_close = models.FloatField()
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['trading_date'])
+        ]
+        unique_together = ['market_symbol', 'trading_date']
+
 # Bao cao tai chinh
 
 
@@ -53,9 +59,15 @@ class StockPrice(models.Model):
     price_open = models.FloatField()
     price_close = models.FloatField()
     total_volume = models.BigIntegerField()
-    total_value = models.BigIntegerField(null=True)
+    total_value = models.BigIntegerField(default=0)
     buy_foreign_value = models.BigIntegerField()
     sell_foreign_value = models.BigIntegerField()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['trading_date'])
+        ]
+        unique_together = ['company', 'trading_date']
 
 # Chi so quan trong
 
