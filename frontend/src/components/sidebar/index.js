@@ -120,8 +120,8 @@ const NavItem = ({ to, icon, children, ...rest }) => {
 const MobileNav = ({ onOpen, ...rest }) => {
     return (
         <Flex
-            ml={{ base: 0, md: 60 }}
-            px={{ base: 4, md: 10 }}
+            ml={{ base: 0, md: 0 }}
+            px={{ base: 0, md: 0 }}
             height="20"
             alignItems="center"
             bg={useColorModeValue('#02B04E', 'gray.900')}
