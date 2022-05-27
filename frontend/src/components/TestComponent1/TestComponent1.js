@@ -5,21 +5,12 @@ import HighchartsExporting from "highcharts/modules/exporting";
 import HighchartsHeatmap from "highcharts/modules/heatmap";
 import HighchartsTreeChart from "highcharts/modules/treemap";
 import HighchartsReact from "highcharts-react-official";
+import data from "./todayPrice.json"
 
 HighchartsData(Highcharts);
 HighchartsHeatmap(Highcharts);
 HighchartsTreeChart(Highcharts);
 HighchartsExporting(Highcharts);
-const COLORS = [
-  "#4db6ac",
-  "#9575cd",
-  "#64b5f6",
-  "#f06292",
-  "#4db6ac",
-  "#9575cd",
-  "#64b5f6",
-  "#f06292"
-];
 
 // option for treemap
 const createChartOptions = (points) => ({
@@ -28,93 +19,74 @@ const createChartOptions = (points) => ({
       type: "treemap",
       layoutAlgorithm: "squarified",
       allowDrillToNode: true,
-      animation: false,
+      animation: true,
       dataLabels: {
-        enabled: false
+        enabled: true,
       },
-      levelIsConstant: false,
+      levelIsConstant: true,
       levels: [{
                      level: 1,
                      dataLabels: {
-                        enabled: true
+                        enabled: true,
+                        inside: false,
+                        y: 10,
+                        allowOverlap: false,
+                        backgroundColor: 'white',
+                        filter: {
+                          property: 'value',
+                          operator: '>',
+                          value: 1
+                        },
+                        align: "left",
+                        color: 'black'
                       },
-                      borderWidth: 10,
-                      borderColor: 'black'
+                      borderWidth: 3
                     
-       },
-        {
-          level: 2,
-          borderWidth: 3
-        }
-      ],
+       }],
       data: points
     }
   ],
   subtitle: false,
   title: false,
   exporting: false,
-  credits: false
+  credits: false,
+  chart:{
+    height: 300
+  }
 });
 
 // code start from here
 function TestComponent1() {
   const [points, setPoints] = useState([]);
   const chartOptions = useMemo(() => createChartOptions(points), [points]);
-  // fetch data from another web to test tree map
+  // useEffect will be used when having the endpoint API
   useEffect(() => {
-    fetch(
-      "https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-mortality.json"
-    )
-      .then((result) => result.json())
-      .then((data) => {
-        var points = [],
-          regionP,
-          regionVal,
-          regionI = 0,
-          countryP,
-          countryI,
-          region,
-          country
-        // format data for tree map
-        for (region in data) {
-          if (data.hasOwnProperty(region)) {
-            var regionVal = 0;
-            regionP = {
-              id: "id_" + regionI,
-              name: region,
-              color: COLORS[regionI],
-              value: 0
-            };
-            countryI = 0;
-            for (country in data[region]) {
-              if (data[region].hasOwnProperty(country)) {
-                countryP = {
-                  id: regionP.id + "_" + countryI,
-                  name: country,
-                  parent: regionP.id,
-                  color: COLORS[countryI % 7],
-                  value: data[region][country]['Injuries']
-                };
-                points.push(countryP);
-                regionVal += countryP.value;
-                countryI = countryI + 1;
-              }
-            }
-            regionP.value = Math.round(regionVal / countryI);
-            points.push(regionP);
-            regionI = regionI + 1;
-          }
-        }
-        setPoints(points);
-      });
-  }, []);
-
+    var idx;
+    for (idx in data) {
+      var col ="#198754"
+      var val = data[idx].priceClose - data[idx].priceOpen
+      if (val < 0) {
+        col = "#dc3545"
+        val = -val
+      }
+      var symbol = {
+        id: idx,
+        name: data[idx].symbol,
+        color: col,
+        value: val
+      }
+      points.push(symbol)
+    }
+    setPoints(points)
+  })
+  
   return (
     <div>
       <HighchartsReact highcharts={Highcharts} options={chartOptions} />
     </div>
   );
 }
+
 
 export default TestComponent1;
 
