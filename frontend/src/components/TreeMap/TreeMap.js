@@ -56,7 +56,7 @@ const createChartOptions = (points) => ({
 });
 
 // code start from here
-function TestComponent1() {
+function TreeMap() {
   const [points, setPoints] = useState([]);
   const chartOptions = useMemo(() => createChartOptions(points), [points]);
   // useEffect will be used when having the endpoint API
@@ -88,5 +88,5 @@ function TestComponent1() {
 }
 
 
-export default TestComponent1;
+export default TreeMap;
 
