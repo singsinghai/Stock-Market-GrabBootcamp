@@ -52,7 +52,7 @@ def populate_marketprice(verbose=False, upsert=False):
             market_history_price.extend(
                 [market_symbol.upper(),
                  datetime.fromtimestamp(
-                     trading_date/1000).astimezone(timezone.utc),
+                     trading_date/1000),
                  price_close]
             )
         

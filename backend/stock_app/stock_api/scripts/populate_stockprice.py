@@ -53,7 +53,7 @@ def populate_stockprice(start_date, upsert=False, verbose=False):
         for trade in api_response:
             stock_history_price.extend([
                 company.pk,
-                datetime.fromisoformat(trade["date"]).astimezone(timezone.utc),
+                datetime.fromisoformat(trade["date"]),
                 trade["priceHigh"],
                 trade["priceLow"],
                 trade["priceOpen"],
