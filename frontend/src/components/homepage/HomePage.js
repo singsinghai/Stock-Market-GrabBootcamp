@@ -1,22 +1,11 @@
 import React from "react";
-import TestChart from "./MarketPriceChart";
-import { SplitView } from "../splitview";
-import MarketTable from "./MarketTable";
+import Market from "./Market";
 
 function HomePage() {
     return (
-        <div>
-        <SplitView
-            left = {<TestChart/>}
-            right = {<TestChart /> }
-
-        />
-
-        <SplitView
-            left = {<TestChart/>}
-            right = {<TestChart /> }
-
-        />
+        <div >
+            
+            <Market />
         </div>
         // <MarketTable/>
     );
