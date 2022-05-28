@@ -1,11 +1,12 @@
 import React from "react";
 import Market from "./Market";
+import TwoChart from "./TwoChart"
 
 function HomePage() {
     return (
-        <div >
-            
+        <div >      
             <Market />
+            <TwoChart />
         </div>
         // <MarketTable/>
     );

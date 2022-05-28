@@ -1,6 +1,6 @@
 import React from "react";
-import TreeMap from "../TreeMap/TreeMap";
-import TwoHalfBarChart from "../TwoHalfBarChart/TwoHalfBarChart";
+import TreeMap from "./TreeMap";
+import TwoHalfBarChart from "./TwoHalfBarChart";
 
 function TwoChart() {
     return (

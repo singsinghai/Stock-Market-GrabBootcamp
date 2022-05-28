@@ -1,5 +1,6 @@
 import React from "react";
 import res  from "./todayPrice.json"
+import { Link } from "react-router-dom";
 
 function TwoHalfBarChart(){
   // data processing
@@ -21,7 +22,9 @@ function TwoHalfBarChart(){
   const list_green = data_green.map((item) => 
     <div className="d-flex flex-row-reverse ">
       <div className="col-4 text-end">
-        {item.symbol}
+        <Link to={`/company/${item.symbol}`}>
+          {item.symbol}
+        </Link>
       </div>
       <div className="col-8 flex-col-reverse d-flex flex-row-reverse">
         <div className="bg-success my-auto rounded" style={{width:item.value, height:15}}></div>
@@ -31,7 +34,9 @@ function TwoHalfBarChart(){
   const list_red = data_red.map((item) => 
     <div className="d-flex">
       <div className="col-4">
-        {item.symbol}
+        <Link to={`/company/${item.symbol}`}>
+          {item.symbol}
+        </Link>
       </div>
       <div className="col-8 flex-col-reverse d-flex flex-row">
         <div className="bg-danger my-auto rounded" style={{width:item.value, height:15}}></div>
