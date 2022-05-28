@@ -8,6 +8,7 @@ import CompanyValuation from './components/companyValuation';
 
 
 
+
 function App() {
     return (
         // This is the Single-Page routing
@@ -16,8 +17,10 @@ function App() {
             <SidebarWithHeader>
                 <Routes>
                     <Route path="/" element={<HomePage/>} />
+
                     <Route path="/xxx" element={<TestComponent1 />} />
-                    <Route path="/company-valuation/:company_symbol" element={<CompanyValuation />} />
+                    <Route path="/company/:company_symbol" element={<CompanyValuation />} />
+
                 </Routes>
 
             </SidebarWithHeader>

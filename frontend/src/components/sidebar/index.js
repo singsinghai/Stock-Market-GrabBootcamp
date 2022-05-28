@@ -15,7 +15,7 @@ import SearchBar from '../searchbar';
 const LinkItems = [
     { name: 'Trang chủ', icon: FiHome , to: "/"},
     { name: 'Bộ lọc cổ phiếu', icon: FiTrendingUp , to: "/xxx"},
-    { name: 'Định giá doanh nghiệp', icon: FiCompass , to: "/company-valuation/VIC"},
+    { name: 'Định giá doanh nghiệp', icon: FiCompass , to: "/company/VIC"},
     { name: 'Xếp hạng công ty', icon: FiStar , to: "/xxx"},
     { name: 'Về chúng tôi', icon: FiSettings , to: "/xxx"},
 ];
