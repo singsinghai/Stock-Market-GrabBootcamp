@@ -3,7 +3,6 @@ import SidebarWithHeader from './components/sidebar';
 //import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import HomePage from './components/homepage/HomePage';
-import TestComponent1 from './components/TestComponent1';
 import CompanyValuation from './components/companyValuation';
 
 
@@ -18,7 +17,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage/>} />
 
-                    <Route path="/xxx" element={<TestComponent1 />} />
+                    <Route path="/xxx" element={ <div> Nothing here yet! </div> } />
                     <Route path="/company/:company_symbol" element={<CompanyValuation />} />
 
                 </Routes>
