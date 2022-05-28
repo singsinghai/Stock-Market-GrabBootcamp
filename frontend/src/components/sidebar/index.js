@@ -15,7 +15,7 @@ import SearchBar from '../searchbar';
 const LinkItems = [
     { name: 'Trang chủ', icon: FiHome , to: "/"},
     { name: 'Bộ lọc cổ phiếu', icon: FiTrendingUp , to: "/xxx"},
-    { name: 'Định giá doanh nghiệp', icon: FiCompass , to: "/xxy"},
+    { name: 'Định giá doanh nghiệp', icon: FiCompass , to: "/company/VIC"},
     { name: 'Xếp hạng công ty', icon: FiStar , to: "/xxx"},
     { name: 'Về chúng tôi', icon: FiSettings , to: "/xxx"},
 ];
@@ -48,7 +48,7 @@ export default function SidebarWithHeader({
 
             {/* Now the header comes in */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} p="4" pl="8">
+            <Box ml={{ base: 0, md: 60 }} pl="8">
                 {children}
             </Box>
         </Box>
