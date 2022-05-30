@@ -1,18 +1,35 @@
 import 'react-tabulator/css/tabulator_bootstrap3.css';
 import { ReactTabulator } from 'react-tabulator'
 
-const columns = [
-    { title: "Thị trường", field: "market_symbol", width: 150 },
-    { title: "Giá", field: "price_close" },
-    { title: "%D", field: "day", hozAlign: "center" },
-    { title: "%W", field: "week", hozAlign: "center" },
-    { title: "%M", field: "month" },
-    { title: "%3M", field: "three_month" },
-    { title: "Y", field: "year", width: 300 }
-];
-// id: 1, market_symbol: 'VN-INDEX', trading_date: '2022-05-27T07:00:00+07:00', price_close: 1277.8
-export const MarketTable = ({ data, current_market, setMarket }) => {
 
+
+export const MarketTable = ({ data, current_market, setMarket }) => {
+    const columns = [
+        {
+            title: "Thị trường", 
+            field: "market_symbol", 
+            width: 150, 
+            cellClick: (e, cell) => {
+                setMarket(cell.getData().market_symbol);
+            },
+            formatter: (cell, formatterParams, onRendered) => {
+                //cell - the cell component
+                //formatterParams - parameters set for the column
+                //onRendered - function to call when the formatter has been rendered
+                let cell_market = cell.getValue();
+                if (cell_market === current_market) {
+                    cell.getElement().style.fontWeight="bold";
+                }
+                return cell.getValue();
+            },
+        },
+        { title: "Giá", field: "price_close" },
+        { title: "%D", field: "day", hozAlign: "center" },
+        { title: "%W", field: "week", hozAlign: "center" },
+        { title: "%M", field: "month" },
+        { title: "%3M", field: "three_month" },
+        { title: "Y", field: "year", width: 300 }
+    ];
     const market_table = []
     if (data) {
 
@@ -60,7 +77,8 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
 
     }
 
-    current_market = "HNX-INDEX";
+
+
     return (
         data ? <ReactTabulator
             data={market_table}
