@@ -1,15 +1,13 @@
 import React from "react";
-import Market from "./Market";
+import { Market } from "./Market";
 import TwoChart from "./TwoChart"
 
-function HomePage() {
+export const HomePage = ({data}) => {
     return (
         <div >      
-            <Market />
+            <Market data={data}/>
             <TwoChart />
         </div>
         // <MarketTable/>
     );
-}
-
-export default HomePage;
+};
