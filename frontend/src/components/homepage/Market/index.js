@@ -1,6 +1,6 @@
 import { MarketPriceChart } from "./MarketPriceChart";
 import { MarketTable } from "./MarketTable";
-import { SplitView } from "../../splitview";
+import { Row, Col} from "react-bootstrap";
 import { useState } from 'react';
 
 export const Market = ({data}) => {
@@ -8,9 +8,13 @@ export const Market = ({data}) => {
     const [current_market, setMarket ] = useState("VN-INDEX");
 
     return (
-        <SplitView
-            left={<MarketPriceChart data={data} current_market={current_market}/>}
-            right={<MarketTable data={data} current_market={current_market} setMarket={setMarket} />}
-        />
+        <Row>
+            <Col xs={12} xl={6}>
+                <MarketPriceChart data={data} current_market={current_market}/>
+            </Col>
+            <Col xs={12} xl={6}>
+                <MarketTable data={data} current_market={current_market} setMarket={setMarket} />
+            </Col>
+        </Row>
     )
 }

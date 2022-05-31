@@ -1,25 +1,25 @@
 import React from "react";
-import { SplitView } from "../../splitview";
 import TreeMap from "./TreeMap";
 import TwoHalfBarChart from "./TwoHalfBarChart";
+import { Row, Col} from "react-bootstrap";
 
 function TwoChart() {
     return (
-
-        <SplitView
-            left={ 
+        <Row>
+            <Col xs={12} xl={7}>
                 <div>
-                <div className="title">Bản đồ thị trường</div>
-                <TreeMap />
+                    <div className="title">Bản đồ thị trường</div>
+                    <TreeMap />
                 </div>
-             }
-             right={ 
+            </Col>
+            <Col xs={12} xl={5}>
                 <div>
-                <div className="title">Khối ngoại</div>
-                <TwoHalfBarChart />
+                    <div className="title">Khối ngoại</div>
+                    <TwoHalfBarChart />
                 </div>
-             }
-        />
+            </Col>
+        </Row>
+                
     )
 };
 

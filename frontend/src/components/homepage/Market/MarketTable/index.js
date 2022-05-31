@@ -90,7 +90,7 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
         <ReactTabulator
             data={market_table}
             columns={columns}
-            layout="fitDataFill"
+            layout="fitColumns"
             height="350px"
         />
     );

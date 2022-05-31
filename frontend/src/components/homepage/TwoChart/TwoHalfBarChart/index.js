@@ -1,13 +1,13 @@
-import React from "react";
-import res from "./todayPrice.json"
+import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 
-function TwoHalfBarChart(){
+const createBarChart = (res) => {
   // data processing
   // take symbol having highest totalForeignValue
   // take symbol having lowest totalForeignValue
   // take 10 symbol having highest totalForeignValue
   // take 10 symbol having lowest totalForeignValue
+  if(res === null) return
   const max_value_green = res[0].totalForeignValue;
   const max_value_red = res[res.length -1].totalForeignValue;
   const data_red = res.slice(-10).reverse().map(item => ({
@@ -61,5 +61,19 @@ function TwoHalfBarChart(){
         </div>
     )
 }
+function TwoHalfBarChart(){
+    const [points, setPoints] = useState(null);
+    const BarChart = useMemo(() => createBarChart(points), [points]);
+    useEffect(() => {
+        fetch('http://139.180.215.250/api/stock-price/top-foreign-value')
+            .then(result => result.json())
+            .then(data => {
+                points = data;
+                setPoints(data)
+            })
+        },[])
+    return BarChart
+}
+          
 
 export default TwoHalfBarChart;

@@ -35,7 +35,6 @@ export const MarketPriceChart = ({ data, current_market }) => {
         chart: {
             zoomType: 'x',
             height: 350,
-            width: 660
         },
 
         title: {

@@ -83,7 +83,7 @@ const createChartOptions = (points) => ({
     credits: false,
     chart: {
         height: 300,
-        width: 840
+		backgroundColor: '#f5f5f5'
     }
 });
 
