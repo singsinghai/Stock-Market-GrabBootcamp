@@ -1,5 +1,6 @@
 import 'react-tabulator/css/tabulator_bootstrap3.css';
 import { ReactTabulator } from 'react-tabulator'
+import { Loading } from '../../../Loading';
 
 
 
@@ -7,8 +8,8 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
 
     const update_percentage_color = (cell, formatterParams, onRendered) => {
         let cell_percentage = cell.getValue();
-        if (cell_percentage < 0) { cell.getElement().style.color="red"; }
-        else { cell.getElement().style.color="green"; }
+        if (cell_percentage < 0) { cell.getElement().style.color = "red"; }
+        else { cell.getElement().style.color = "green"; }
 
         return cell_percentage + "%";
 
@@ -16,9 +17,9 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
 
     const columns = [
         {
-            title: "Thị trường", 
-            field: "market_symbol", 
-            width: 150, 
+            title: "Thị trường",
+            field: "market_symbol",
+            width: 150,
             cellClick: (e, cell) => {
                 setMarket(cell.getData().market_symbol);
             },
@@ -28,7 +29,7 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
                 //onRendered - function to call when the formatter has been rendered
                 let cell_market = cell.getValue();
                 if (cell_market === current_market) {
-                    cell.getElement().style.fontWeight="bold";
+                    cell.getElement().style.fontWeight = "bold";
                 }
                 return cell.getValue();
             },
@@ -95,6 +96,8 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
             columns={columns}
             layout="fitDataFill"
             height="350px"
-        /> : <div> Data is loading... </div>
+        />
+            : <Loading height={"350px"} width={"600px"} />
+
     );
 }
