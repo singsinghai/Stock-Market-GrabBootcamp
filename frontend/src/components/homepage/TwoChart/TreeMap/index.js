@@ -11,6 +11,7 @@ HighchartsHeatmap(Highcharts);
 HighchartsTreeChart(Highcharts);
 HighchartsExporting(Highcharts);
 
+const months = ['01','02','03','04','05','06','07','08','09','10','11','12']
 // option for treemap
 const createChartOptions = (points) => ({
     series: [
@@ -89,10 +90,18 @@ const createChartOptions = (points) => ({
 
 // code start from here
 function TreeMap() {
+    let url = 'http://139.180.215.250/api/stock-price/all/';
+    let d = new Date()
+    // 60 * 60 * 1000 mean 1 hour 
+    // if you are in 3:00 AM you don't have any data from today because the first trade from 6:00 AM
+    //  so I decrease 6 hours 
+    d.setTime(d.getTime() - 60 * 60 * 1000 * 6) 
+    url += d.getFullYear() +'-'+months[d.getMonth()]+'-'+d.getDate()
+    console.log(url)
     const [points, setPoints] = useState([]);
     const chartOptions = useMemo(() => createChartOptions(points), [points]);
     useEffect(() => {
-        fetch('http://139.180.215.250/api/stock-price/all/2022-05-31')
+        fetch(url)
             .then(result => result.json())
             .then(data => {
                 var industryI = 0,
