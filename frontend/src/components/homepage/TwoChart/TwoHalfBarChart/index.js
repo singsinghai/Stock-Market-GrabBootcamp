@@ -21,35 +21,37 @@ function TwoHalfBarChart(){
   // format data to show chart
   const list_green = data_green.map((item) => 
     <div className="d-flex flex-row-reverse ">
-      <div className="col-4 text-end">
+      <div className="col-3 text-end">
         <Link to={`/company/${item.symbol}`}>
           {item.symbol}
         </Link>
       </div>
-      <div className="col-8 flex-col-reverse d-flex flex-row-reverse">
-        <div className="bg-success my-auto rounded" style={{width:item.value, height:15}}></div>
+      <div className="col-9 flex-col-reverse d-flex flex-row-reverse">
+        <div className="bg-green my-auto rounded ms-1" style={{width:item.value, height:15}}></div>
+        <span> {Math.round(item.totalForeignValue / 100000000)/10}</span>
       </div>
     </div>    
   )
   const list_red = data_red.map((item) => 
     <div className="d-flex">
-      <div className="col-4">
+      <div className="col-3">
         <Link to={`/company/${item.symbol}`}>
           {item.symbol}
         </Link>
       </div>
-      <div className="col-8 flex-col-reverse d-flex flex-row">
-        <div className="bg-danger my-auto rounded" style={{width:item.value, height:15}}></div>
+      <div className="col-9 flex-col-reverse d-flex flex-row">
+        <div className="bg-red my-auto rounded me-1" style={{width:item.value, height:15}}></div>
+        <span>{Math.round(item.totalForeignValue / -100000000)/10}</span>
       </div>
     </div>    
   )
-  const list = (<div className="row" style={{maxWidth: 400}}>
+  const list = (<div className="row center" style={{maxWidth: 500}}>
             <div className="col-6">
-              <div className="text-center text-success fw-bold"> Top mua ròng</div>
+              <div className="text-center text-green fw-bold"> Top mua ròng</div>
               {list_green}
             </div>
             <div className="col-6">
-              <div className="text-center text-danger fw-bold"> Top bán ròng</div>
+              <div className="text-center text-red fw-bold"> Top bán ròng</div>
               {list_red}
             </div>
           </div>)

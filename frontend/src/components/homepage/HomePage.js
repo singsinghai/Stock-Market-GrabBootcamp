@@ -4,7 +4,8 @@ import TwoChart from "./TwoChart"
 
 function HomePage() {
     return (
-        <div >      
+        <div > 
+            <div className="title">Diễn biến thị trường</div>
             <Market />
             <TwoChart />
         </div>
