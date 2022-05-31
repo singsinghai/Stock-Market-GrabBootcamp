@@ -5,6 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { IndustryBoxPlot } from "./IndustryBoxPLot";
 import { SplitView } from "../splitview";
+import ColumnChart from  "./ColumnChart"
 
 function CompanyValuation() {
     const [company, setCompany] = useState({});
@@ -91,7 +92,7 @@ function CompanyValuation() {
                     left={ //Nửa màn hình bên trái
                         <div>
                             <SplitView
-                                left={<div>Chart 1</div>} //Chart 1
+                                left={<div> <ColumnChart/> </div>} //Chart 1
                                 right={<div>Chart 2</div>} //Chart 2
                             />
                             <SplitView

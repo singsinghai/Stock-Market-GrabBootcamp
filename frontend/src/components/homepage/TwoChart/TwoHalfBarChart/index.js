@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { Loading } from "../../../Loading";
 
 const createBarChart = (res) => {
   // data processing
@@ -72,7 +73,7 @@ function TwoHalfBarChart(){
                 setPoints(data)
             })
         },[])
-    return BarChart
+    return points? BarChart: <Loading />
 }
           
 

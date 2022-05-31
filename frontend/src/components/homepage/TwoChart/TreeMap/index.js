@@ -5,6 +5,7 @@ import HighchartsExporting from "highcharts/modules/exporting";
 import HighchartsHeatmap from "highcharts/modules/heatmap";
 import HighchartsTreeChart from "highcharts/modules/treemap";
 import HighchartsReact from "highcharts-react-official";
+import { Loading } from "../../../Loading";
 
 HighchartsData(Highcharts);
 HighchartsHeatmap(Highcharts);
@@ -144,7 +145,9 @@ function TreeMap() {
             })
     }, [])
     return (
-        <div>
+        points.length === 0?
+        <Loading />
+        : <div>
             <HighchartsReact highcharts={Highcharts} options={chartOptions} />
         </div>
     );
