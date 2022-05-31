@@ -59,7 +59,7 @@ function CompanyValuation() {
             />
         );
     } else {
-        console.log(company)
+        // console.log(company)
         return (
             <Container fluid className="p-0 mt-0">
                 <Row className="flex justify-between items-center pb-4 ps-1 space-x-10 shadow p-3 mb-5 bg-white">
