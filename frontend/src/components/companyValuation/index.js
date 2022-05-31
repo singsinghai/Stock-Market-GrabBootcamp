@@ -57,7 +57,6 @@ function CompanyValuation() {
             />
         );
     } else {
-        // console.log(company)
         return (
             <div>
                 <Container fluid className="p-0 mt-0">
