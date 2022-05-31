@@ -1,5 +1,5 @@
 import React from "react";
-import res  from "./todayPrice.json"
+import res from "./todayPrice.json"
 import { Link } from "react-router-dom";
 
 function TwoHalfBarChart(){
@@ -53,13 +53,13 @@ function TwoHalfBarChart(){
             <div className="col-6">
               <div className="text-center text-red fw-bold"> Top bán ròng</div>
               {list_red}
-            </div>
-          </div>)
-  return(
-    <div>
-      {list}
-    </div>
-  )
+        </div>
+    </div>)
+    return (
+        <div>
+            {list}
+        </div>
+    )
 }
 
 export default TwoHalfBarChart;
