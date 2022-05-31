@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar';
-import GrabFont from '../../index.css';
+import '../../index.css';
 
 
 // List of items on the sidebar, controlled by the NavItem component below
@@ -49,7 +49,7 @@ export default function SidebarWithHeader({
 
             {/* Now the header comes in */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} pl="8">
+            <Box ml={{ base: 0, md: 60 }} pl="3">
                 {children}
             </Box>
         </Box>
@@ -62,13 +62,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <Box
             transition="3s ease"
             bg={useColorModeValue('#007F21', 'gray.900')}
-            borderRight="1px"
+            //borderRight="0px"
             borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-            w={{ base: 'full', md: "260px" }}
+            w={{ base: 'full', md: "230px" }}
             pos="fixed"
             h="full"
             {...rest}>
-            <Flex h="20" alignItems="center" mx="8" justifyContent="space-between" textAlign="center">
+            <Flex h="20" alignItems="center" mx="4" justifyContent="space-between" textAlign="center">
                 <Text fontSize="42" fontFamily="GrabFont">
                     HERCULÉ
                 </Text>

@@ -15,9 +15,9 @@ export const SplitView = props => {
 
 	// Nếu có cả left và right thì split view
 	return (
-		<Flex direction="row" alignItems="start" style={{ marginBottom: "30px" }}>
+		<Flex direction="row" alignItems="start" style={{ marginBottom: "20px" }}>
 			<div> {left} </div>
-			<div style={{ display: "flex", flex: "1 1 0%", paddingLeft: "1.5rem"}}>{right}</div>
+			<div style={{ display: "flex", flex: "1 1 0%", paddingLeft: "1.5rem"}}> {right} </div>
 		</Flex>
 	)
 
