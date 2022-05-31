@@ -3,6 +3,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { IndustryBoxPlot } from "./IndustryBoxPLot";
+import { SplitView } from "../splitview";
 
 function CompanyValuation() {
     const [company, setCompany] = useState({});
@@ -19,16 +21,12 @@ function CompanyValuation() {
             ])
             .then(
                 axios.spread((...responses) => {
-                    const data = responses.map((res, idx) => {
+                    const data = responses.map((res) => {
                         return res.data;
                     })
-                    console.log(data)
                     setCompany(Object.assign({}, ...data));
                 })
             )
-            .catch((e) => {
-                console.log(e);
-            });
     };
 
     useEffect(() => {
@@ -61,33 +59,60 @@ function CompanyValuation() {
     } else {
         // console.log(company)
         return (
-            <Container fluid className="p-0 mt-0">
-                <Row className="flex justify-between items-center pb-4 ps-1 space-x-10 shadow p-3 mb-5 bg-white">
-                    <Col xs={1}>
-                        <Image
-                            objectFit="contain"
-                            src={`https://wichart.vn/images/logo-dn/${company_symbol}.jpeg`}
-                        />
-                    </Col>
-                    <Col xs={4}>
-                        <Row>
-                            <Text fontWeight="bold">
-                                {company.company_name} ({company.symbol}){" "}
-                            </Text>
-                        </Row>
-                        <Row>
-                            <Text>{company.floor_code}</Text>
-                        </Row>
-                        <Row>
-                            <Text>{company.industry_name}</Text>
-                        </Row>
-                    </Col>
-                    {renderStats(["Vốn hóa", "KLGD TB15D", "KLCP lưu hành"])}
-                    {renderStats(["EPS (D)", "P/E (D)", "PEG"])}
-                    {renderStats(["Book value (D)", "P/B (D)", "Tỷ lệ cổ tức"])}
-                </Row>
-                <Row></Row>
-            </Container>
+            <div>
+                <Container fluid className="p-0 mt-0">
+                    <Row className="flex justify-between items-center pb-4 ps-1 space-x-10 shadow p-3 mb-5 bg-white">
+                        <Col xs={1}>
+                            <Image
+                                objectFit="contain"
+                                src={`https://wichart.vn/images/logo-dn/${company_symbol}.jpeg`}
+                            />
+                        </Col>
+                        <Col xs={4}>
+                            <Row>
+                                <Text fontWeight="bold">
+                                    {company.company_name} ({company.symbol}){" "}
+                                </Text>
+                            </Row>
+                            <Row>
+                                <Text>{company.floor_code}</Text>
+                            </Row>
+                            <Row>
+                                <Text>{company.industry_name}</Text>
+                            </Row>
+                        </Col>
+                        {renderStats(["Vốn hóa", "KLGD TB15D", "KLCP lưu hành"])}
+                        {renderStats(["EPS (D)", "P/E (D)", "PEG"])}
+                        {renderStats(["Book value (D)", "P/B (D)", "Tỷ lệ cổ tức"])}
+                    </Row>
+                    <Row></Row>
+                </Container>
+
+                <SplitView
+                    left={ //Nửa màn hình bên trái
+                        <div>
+                            <SplitView
+                                left={<div>Chart 1</div>} //Chart 1
+                                right={<div>Chart 2</div>} //Chart 2
+                            />
+                            <SplitView
+                                left={<div>Chart 3</div>} //Chart 3
+                                right={<div>Chart 4</div>} //Chart 4
+                            />
+                        </div>
+                    }
+
+                    right={ //Nửa màn hình bên phải
+                        <div>
+                            Bullet Chart {/*Bullet chart ở đây*/}
+                            <SplitView 
+                                left={<div><IndustryBoxPlot/></div>} //Boxplot
+                                right={<div>Bảng định giá</div>} //Bảng định giá
+                            />
+                        </div>}
+                />
+
+            </div>
         );
     }
 }

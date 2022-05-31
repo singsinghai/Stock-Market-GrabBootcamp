@@ -2,7 +2,6 @@ import React from "react";
 import { GuardSpinner } from "react-spinners-kit";
 
 export const Loading = ({ height, width }) => {
-    console.log([height, width])
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height, width }}>
 

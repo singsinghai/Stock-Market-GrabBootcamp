@@ -2,7 +2,7 @@ import './App.css';
 import SidebarWithHeader from './components/sidebar';
 //import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { HomePage } from './components/homepage/HomePage';
+import { HomePage } from './components/homepage';
 import CompanyValuation from './components/companyValuation';
 import ApiCaller from './api/ApiCaller';
 import { useEffect, useState } from 'react';

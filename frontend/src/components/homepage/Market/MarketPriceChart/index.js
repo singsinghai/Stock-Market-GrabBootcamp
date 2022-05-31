@@ -11,13 +11,10 @@ require('highcharts/modules/export-data')(Highcharts);
 require('highcharts/modules/annotations')(Highcharts);
 
 export const MarketPriceChart = ({ data, current_market }) => {
-    const dateToString = date => date.toDateString().slice(4, 15); //Hàm để cắt mất cái days in week (Mon, Tue, Wed,...)
-    let by_market = null
-    let options = null
 
     // Draw the chart if data is not null
 
-    by_market = data.filter((item) => {
+    let by_market = data.filter((item) => {
         return item.market_symbol === current_market
     })
 
@@ -34,7 +31,7 @@ export const MarketPriceChart = ({ data, current_market }) => {
     let chart_data = trading_date.map((item, i) => [item, price_close[i]])
 
     // Bắt đầu định nghĩa các yếu tố của chart
-    options = {
+    const options = {
         chart: {
             zoomType: 'x',
             height: 350,
@@ -43,14 +40,11 @@ export const MarketPriceChart = ({ data, current_market }) => {
         title: {
             text: 'Diễn biến thị trường ' + current_market,
             style: {
-                fontFamily: "Courier New",
+                fontFamily: "Segoe UI",
                 fontWeight: "bold"
             }
         },
-        // subtitle: { text: 'Yor Forger No.1' },
         xAxis: {
-            // categories: by_market.map(item => item.trading_date),
-            // tickInterval: DATE_SPLIT,
             type: "datetime"
         },
 
