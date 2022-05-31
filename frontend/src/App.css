@@ -37,3 +37,34 @@
         transform: rotate(360deg);
     }
 } */
+.title{
+    border-left: 5px solid #17803d;
+    background-image: linear-gradient(to right, rgba(23, 128, 61, 0.2), rgb(245, 245, 245));
+    margin: 20px 0;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+.bg-red{
+    background-color: #b91C1b;
+}
+
+.bg-green{
+    background-color: #17803d;
+}
+
+.text-red{
+    color: #b91C1b;
+}
+
+.text-green{
+    color: #17803d;
+}
+
+a:hover{
+    font-weight: bold;
+    color: black;
+}
+
+.center{
+    margin: auto;
+}

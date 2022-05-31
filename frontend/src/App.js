@@ -34,10 +34,8 @@ function App() {
             <SidebarWithHeader>
                 <Routes>
                     <Route path="/" element={<HomePage market_data={market_data}/>} />
-
                     <Route path="/xxx" element={ <div> Nothing here yet! </div> } />
                     <Route path="/company/:company_symbol" element={<CompanyValuation />} />
-
                 </Routes>
 
             </SidebarWithHeader>
