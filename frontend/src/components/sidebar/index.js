@@ -14,10 +14,10 @@ import SearchBar from '../searchbar';
 // List of items on the sidebar, controlled by the NavItem component below
 const LinkItems = [
     { name: 'Trang chủ', icon: FiHome , to: "/"},
-    { name: 'Bộ lọc cổ phiếu', icon: FiTrendingUp , to: "/xxx"},
-    { name: 'Định giá doanh nghiệp', icon: FiCompass , to: "/company/VIC"},
-    { name: 'Xếp hạng công ty', icon: FiStar , to: "/xxx"},
-    { name: 'Về chúng tôi', icon: FiSettings , to: "/xxx"},
+    //{ name: 'Bộ lọc cổ phiếu', icon: FiTrendingUp , to: "/xxx"},
+    { name: 'Định giá doanh nghiệp', icon: FiStar , to: "/company/VIC"},
+    { name: 'Xếp hạng công ty', icon: FiTrendingUp, to: "/xxx"},
+    { name: 'Về chúng tôi', icon: FiCompass, to: "/xxx"},
 ];
 
 
