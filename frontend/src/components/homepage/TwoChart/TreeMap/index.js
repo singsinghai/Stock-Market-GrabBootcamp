@@ -5,22 +5,21 @@ import HighchartsExporting from "highcharts/modules/exporting";
 import HighchartsHeatmap from "highcharts/modules/heatmap";
 import HighchartsTreeChart from "highcharts/modules/treemap";
 import HighchartsReact from "highcharts-react-official";
-import data from "./sectionPrice.json"
-import { withTheme } from "@emotion/react";
 
 HighchartsData(Highcharts);
 HighchartsHeatmap(Highcharts);
 HighchartsTreeChart(Highcharts);
 HighchartsExporting(Highcharts);
 
-var originalColor
 // option for treemap
 const createChartOptions = (points) => ({
   series: [
     {
       type: "treemap",
       layoutAlgorithm: "squarified",
-      
+      style: {
+        fontFamily: 'Segoe UI'
+      },
       allowDrillToNode: true,
       animation: true,
       dataLabels: {
@@ -30,33 +29,43 @@ const createChartOptions = (points) => ({
       levels: [{
                 level: 1,
                 dataLabels: {
+                  style: {
+                    fontFamily: 'Segoe UI'
+                  },
                   enabled: true,
                   inside: false,
-                  y: 10,
-                  allowOverlap: false,
-                  crop: false,
+                  y: 13,
                   backgroundColor: 'white',
-                  filter: {
-                    property: 'value',
-                    operator: '>',
-                    value: 10000000
-                  },
                   align: "left",
-                  color: 'black'
+                  color: 'black',
+                  formatter: function(){
+                    console.log(this.point.shapeArgs, this.point.name)
+                    if(this.point.shapeArgs){
+                      if(this.point.shapeArgs.width > this.point.name.length * 6 && this.point.shapeArgs.height > 30)
+                        return this.point.name
+                    }
+                  }
                 },
-                borderWidth: 2
+                borderWidth: 2,
               },
               {
                 level: 2,
                 dataLabels: {
-                   enabled: true,
-                   allowOverlap: false,
-                   filter: {
-                    property: 'value',
-                    operator: '>',
-                    value: 3000000
+                  style: {
+                    fontFamily: 'Segoe UI',
+                    textOutline: false,
+                    fontWeight: 600,
                   },
-                 },
+                  color: '#f5f5f5',
+                  enabled: true,
+                  // format: '{name} <br> {change}',
+                  formatter: function (){
+                    if(this.point.shapeArgs){
+                      if(this.point.shapeArgs.width > this.point.name.length * 9 && this.point.shapeArgs.height > 30)
+                        return this.point.name + '<br>' + this.point.change + '%'
+                    }
+                  }
+                },
                  
                 borderWidth: 1,
                  
@@ -65,6 +74,9 @@ const createChartOptions = (points) => ({
       data: points
     }
   ],
+  tooltip:{
+    pointFormat: "<b>{point.name}:</b>  {point.value}"
+  },
   subtitle: false,
   title: false,
   exporting: false,
@@ -78,43 +90,49 @@ const createChartOptions = (points) => ({
 function TreeMap() {
   const [points, setPoints] = useState([]);
   const chartOptions = useMemo(() => createChartOptions(points), [points]);
-  // useEffect will be used when having the endpoint API
   useEffect(() => {
-    var industryI = 0,
-        industry,
-        industryVal,
-        idx
-     
-    for (industry in data) {
-      industryVal = 0
-      for(idx in data[industry]){
-        var col ="#198754"
-        var val = data[industry][idx].priceClose - data[industry][idx].priceOpen
-        if (val < 0) {
-          col = "#dc3545"
-          val = -val
-        }
-        industryVal += data[industry][idx].totalVolume
+    fetch('http://139.180.215.250/api/stock-price/all/2022-05-31')
+    .then(result => result.json())
+    .then(data => {
+      var industryI = 0,
+          industry,
+          industryVal,
+          idx,
+          points = []
+      
+      for (industry in data) {
+        industryVal = 0
+        for(idx in data[industry]){
+          var col ="#17803d";
+          var val = Math.round((data[industry][idx].price_close - data[industry][idx].price_open) * 100) / 100;
+          if (val < 0) {
+            col = "#b91C1b";
+            val = -val;
+          }
+          if (val === 0) {
+            col = "#777777";
+          }
+          industryVal += data[industry][idx].total_value;
+          points.push({
+            id: 'symbol_' + idx + '_' + industryI,
+            name: data[industry][idx].symbol,
+            change: val,
+            parent: 'industry_' + industryI,
+            color: col,
+            value: data[industry][idx].total_value
+          })
+        }  
         points.push({
-          id: idx,
-          name: data[industry][idx].symbol,
-          change: val,
-          parent: 'industry_' + industryI,
-          color: col,
-          value: data[industry][idx].totalVolume
+          id : 'industry_' + industryI,
+          name: industry,
+          color: 'rgba(23, 128, 61, 0)',
+          value: industryVal
         })
-      }  
-      points.push({
-        id : 'industry_' + industryI,
-        name: industry,
-        color: "#f6d2d0",
-        value: industryVal
-      })
-      industryI++
-    }
-    setPoints(points)
-  })
-  
+        industryI++;
+      }
+      setPoints(points);
+    })
+  }, [])
   return (
     <div>
       <HighchartsReact highcharts={Highcharts} options={chartOptions} />

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from 'highcharts-react-official';
+import { Loading } from "../../../Loading";
 
 
 // The requirements to save the chart into CSV, PNG, PDF,...
@@ -118,10 +119,11 @@ export const MarketPriceChart = ({ data, current_market }) => {
 
 
     return (
+        
         by_market ? <HighchartsReact 
             highcharts={Highcharts} 
             constructorType={"stockChart"} 
             options={options} 
-        /> : <div> Data is loading... </div>
+        /> : <Loading height="350px" width="600px"/>
     );
 }

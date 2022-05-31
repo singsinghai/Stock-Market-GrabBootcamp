@@ -1,14 +1,25 @@
 import 'react-tabulator/css/tabulator_bootstrap3.css';
 import { ReactTabulator } from 'react-tabulator'
+import { Loading } from '../../../Loading';
 
 
 
 export const MarketTable = ({ data, current_market, setMarket }) => {
+
+    const update_percentage_color = (cell, formatterParams, onRendered) => {
+        let cell_percentage = cell.getValue();
+        if (cell_percentage < 0) { cell.getElement().style.color = "red"; }
+        else { cell.getElement().style.color = "green"; }
+
+        return cell_percentage + "%";
+
+    }
+
     const columns = [
         {
-            title: "Thị trường", 
-            field: "market_symbol", 
-            width: 150, 
+            title: "Thị trường",
+            field: "market_symbol",
+            width: 150,
             cellClick: (e, cell) => {
                 setMarket(cell.getData().market_symbol);
             },
@@ -18,17 +29,17 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
                 //onRendered - function to call when the formatter has been rendered
                 let cell_market = cell.getValue();
                 if (cell_market === current_market) {
-                    cell.getElement().style.fontWeight="bold";
+                    cell.getElement().style.fontWeight = "bold";
                 }
                 return cell.getValue();
             },
         },
         { title: "Giá", field: "price_close" },
-        { title: "%D", field: "day", hozAlign: "center" },
-        { title: "%W", field: "week", hozAlign: "center" },
-        { title: "%M", field: "month" },
-        { title: "%3M", field: "three_month" },
-        { title: "Y", field: "year", width: 300 }
+        { title: "%D", field: "day", hozAlign: "center", formatter: update_percentage_color },
+        { title: "%W", field: "week", hozAlign: "center", formatter: update_percentage_color },
+        { title: "%M", field: "month", formatter: update_percentage_color },
+        { title: "%3M", field: "three_month", formatter: update_percentage_color },
+        { title: "Y", field: "year", formatter: update_percentage_color }
     ];
     const market_table = []
     if (data) {
@@ -59,7 +70,7 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
             const price_close = by_market.map(item => item.price_close);
 
             const priceDiff = (i) => {
-                return ((price_close[0] - price_close[i]) / price_close[i] * 100).toFixed(2) + "%"
+                return ((price_close[0] - price_close[i]) / price_close[i] * 100).toFixed(2)
             };
 
             const market_row = {
@@ -69,7 +80,7 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
                 week: priceDiff(5),
                 month: priceDiff(20),
                 three_month: priceDiff(60),
-                year: priceDiff(720)
+                year: priceDiff(240)
             };
 
             market_table.push(market_row)
@@ -85,6 +96,8 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
             columns={columns}
             layout="fitDataFill"
             height="350px"
-        /> : <div> Data is loading... </div>
+        />
+            : <Loading height={"350px"} width={"600px"} />
+
     );
 }
