@@ -1,14 +1,11 @@
 import { MarketPriceChart } from "./MarketPriceChart";
 import { MarketTable } from "./MarketTable";
 import { SplitView } from "../../splitview";
-//import ApiCaller from "../../../api/ApiCaller";
 import { useState } from 'react';
 
 export const Market = ({data}) => {
 
     const [current_market, setMarket ] = useState("VN-INDEX");
-
-
 
     return (
         <SplitView
@@ -17,5 +14,3 @@ export const Market = ({data}) => {
         />
     )
 }
-
-export default Market;

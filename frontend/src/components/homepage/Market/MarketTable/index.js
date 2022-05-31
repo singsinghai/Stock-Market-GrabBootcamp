@@ -64,7 +64,6 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
 
         by_market.sort((a, b) => b.trading_date - a.trading_date);
 
-        // const trading_date = by_market.map(item => item.trading_date);
         const price_close = by_market.map(item => item.price_close);
 
         const priceDiff = (i) => {

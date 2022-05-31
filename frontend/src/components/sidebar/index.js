@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import {
-    FiCompass, FiHome, FiMenu, FiSettings, FiStar, FiTrendingUp
+    FiCompass, FiHome, FiMenu, FiStar, FiTrendingUp
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar';
@@ -14,8 +14,7 @@ import SearchBar from '../searchbar';
 // List of items on the sidebar, controlled by the NavItem component below
 const LinkItems = [
     { name: 'Trang chủ', icon: FiHome , to: "/"},
-    //{ name: 'Bộ lọc cổ phiếu', icon: FiTrendingUp , to: "/xxx"},
-    { name: 'Định giá doanh nghiệp', icon: FiStar , to: "/company/VIC"},
+    { name: 'Định giá công ty', icon: FiStar , to: "/company/VIC"},
     { name: 'Xếp hạng công ty', icon: FiTrendingUp, to: "/xxx"},
     { name: 'Về chúng tôi', icon: FiCompass, to: "/xxx"},
 ];
@@ -69,7 +68,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between" textAlign="center">
                 <Text fontSize="4xl" fontFamily="Roboto Slab" fontWeight="bold">
-                    HẺ-CU-LÉ
+                    HERCULÉ
                 </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
