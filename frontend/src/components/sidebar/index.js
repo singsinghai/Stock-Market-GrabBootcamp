@@ -10,6 +10,8 @@ import {
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar';
+import GrabFont from '../../index.css';
+
 
 // List of items on the sidebar, controlled by the NavItem component below
 const LinkItems = [
@@ -67,7 +69,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             h="full"
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between" textAlign="center">
-                <Text fontSize="4xl" fontFamily="Roboto Slab" fontWeight="bold">
+                <Text fontSize="42" fontFamily="GrabFont">
                     HERCULÉ
                 </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
