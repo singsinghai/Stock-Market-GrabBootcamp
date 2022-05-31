@@ -1,15 +1,14 @@
 import 'react-tabulator/css/tabulator_bootstrap3.css';
-import { ReactTabulator } from 'react-tabulator'
-import { Loading } from '../../../Loading';
+import { ReactTabulator } from 'react-tabulator';
 
 
 
 export const MarketTable = ({ data, current_market, setMarket }) => {
 
-    const update_percentage_color = (cell, formatterParams, onRendered) => {
+    const update_percentage_color = (cell) => {
         let cell_percentage = cell.getValue();
-        if (cell_percentage < 0) { cell.getElement().style.color = "red"; }
-        else { cell.getElement().style.color = "green"; }
+        if (cell_percentage < 0) { cell.getElement().style.color = "rgb(185, 28, 27)"; }
+        else { cell.getElement().style.color = "rgb(23, 128, 61)"; }
 
         return cell_percentage + "%";
 
@@ -23,7 +22,7 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
             cellClick: (e, cell) => {
                 setMarket(cell.getData().market_symbol);
             },
-            formatter: (cell, formatterParams, onRendered) => {
+            formatter: (cell) => {
                 //cell - the cell component
                 //formatterParams - parameters set for the column
                 //onRendered - function to call when the formatter has been rendered
@@ -41,63 +40,59 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
         { title: "%3M", field: "three_month", formatter: update_percentage_color },
         { title: "Y", field: "year", formatter: update_percentage_color }
     ];
-    const market_table = []
-    if (data) {
+    const market_table = [];
 
-        // Đây là hàm để group by key
-        let groupBy = function (xs, key) {
-            return xs.reduce(function (rv, x) {
-                (rv[x[key]] = rv[x[key]] || []).push(x);
-                return rv;
-            }, {});
+    // Đây là hàm để group by key
+    let groupBy = function (xs, key) {
+        return xs.reduce(function (rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+    };
+    let groupedByMarket = groupBy(data, 'market_symbol')
+
+    const markets = Object.keys(groupedByMarket)
+
+
+    markets.forEach(key => {
+        let by_market = groupedByMarket[key]
+
+        by_market = by_market.map(item => ({
+            ...item,
+            trading_date: new Date(item.trading_date).getTime()
+        }));
+
+        by_market.sort((a, b) => b.trading_date - a.trading_date);
+
+        // const trading_date = by_market.map(item => item.trading_date);
+        const price_close = by_market.map(item => item.price_close);
+
+        const priceDiff = (i) => {
+            return ((price_close[0] - price_close[i]) / price_close[i] * 100).toFixed(2)
         };
-        let groupedByMarket = groupBy(data, 'market_symbol')
 
-        const markets = Object.keys(groupedByMarket)
+        const market_row = {
+            market_symbol: key,
+            price_close: price_close[0],
+            day: priceDiff(1),
+            week: priceDiff(5),
+            month: priceDiff(20),
+            three_month: priceDiff(60),
+            year: priceDiff(240)
+        };
 
-
-        markets.forEach(key => {
-            let by_market = groupedByMarket[key]
-
-            by_market = by_market.map(item => ({
-                ...item,
-                trading_date: new Date(item.trading_date).getTime()
-            }));
-
-            by_market.sort((a, b) => b.trading_date - a.trading_date);
-
-            // const trading_date = by_market.map(item => item.trading_date);
-            const price_close = by_market.map(item => item.price_close);
-
-            const priceDiff = (i) => {
-                return ((price_close[0] - price_close[i]) / price_close[i] * 100).toFixed(2)
-            };
-
-            const market_row = {
-                market_symbol: key,
-                price_close: price_close[0],
-                day: priceDiff(1),
-                week: priceDiff(5),
-                month: priceDiff(20),
-                three_month: priceDiff(60),
-                year: priceDiff(240)
-            };
-
-            market_table.push(market_row)
-        })
-
-    }
+        market_table.push(market_row)
+    })
+        ;
 
 
 
     return (
-        data ? <ReactTabulator
+        <ReactTabulator
             data={market_table}
             columns={columns}
             layout="fitDataFill"
             height="350px"
         />
-            : <Loading height={"350px"} width={"600px"} />
-
     );
 }

@@ -2,11 +2,11 @@ import { MarketPriceChart } from "./MarketPriceChart";
 import { MarketTable } from "./MarketTable";
 import { SplitView } from "../../splitview";
 //import ApiCaller from "../../../api/ApiCaller";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export const Market = ({data}) => {
 
-    const [current_market, setMarket ] = useState("VN-INDEX")
+    const [current_market, setMarket ] = useState("VN-INDEX");
 
 
 
