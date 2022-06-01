@@ -59,7 +59,7 @@ function IndustryBoxPlot() {
         },
 
         xAxis: {
-            categories: '1',
+            categories: ['company'],
         },
 
         yAxis: {
@@ -73,16 +73,15 @@ function IndustryBoxPlot() {
                 align: 'left',
                 enabled: true
             },
-            name: 'Observations',
+            name: 'IndustryValues',
             data: [boxData],
             tooltip: {
-                headerFormat: '<em>Experiment No {point.key}</em><br/>'
             },
             pointWidth: 40,
             color: "black",
             fillColor: "gray"
         }, {
-            name: 'Outliers',
+            name: 'CompanyValue',
             color: "red",
             type: 'scatter',
             data: [[0, 13]],
@@ -93,7 +92,7 @@ function IndustryBoxPlot() {
                 lineColor: "purple"
             },
             tooltip: {
-                pointFormat: 'Observation: {point.y}'
+                pointFormat: 'Định giá: {point.y}'
             }
         }]
     }
