@@ -1,5 +1,5 @@
-import { MarketPriceChart } from "./MarketPriceChart";
-import { MarketTable } from "./MarketTable";
+import MarketPriceChart from "./MarketPriceChart";
+import MarketTable from "./MarketTable";
 import { Row, Col} from "react-bootstrap";
 import { useState } from 'react';
 

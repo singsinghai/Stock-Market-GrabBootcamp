@@ -3,15 +3,15 @@ import { ReactTabulator } from 'react-tabulator';
 
 
 
-export const MarketTable = ({ data, current_market, setMarket }) => {
+function MarketTable ({ data, current_market, setMarket }) {
 
     const update_percentage_color = (cell) => {
         let cell_percentage = cell.getValue();
+        
         if (cell_percentage < 0) { cell.getElement().style.color = "rgb(185, 28, 27)"; }
         else { cell.getElement().style.color = "rgb(23, 128, 61)"; }
 
         return cell_percentage + "%";
-
     }
 
     const columns = [
@@ -81,8 +81,7 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
         };
 
         market_table.push(market_row)
-    })
-        ;
+    });
 
 
 
@@ -95,3 +94,5 @@ export const MarketTable = ({ data, current_market, setMarket }) => {
         />
     );
 }
+
+export default MarketTable;

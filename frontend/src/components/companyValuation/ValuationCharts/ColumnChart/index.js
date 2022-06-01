@@ -10,13 +10,22 @@ const createColumn = (points) => ({
     xAxis: {
         data: points.map((item) => item.name)
     },
-    yAxis: [{},{}],
+    yAxis: [{
+        title: false
+    },
+    {
+        opposite: true,
+        labels: {
+            format: '{text}%'
+        },
+        title: false
+    }],
     series: [
     {
         yAxis: 0,
         name: "column",
         type: "column",
-        data: points.map((item) => item.x)
+        data: points.map((item) => item.x),
     },
     {
         yAxis: 1,
@@ -24,7 +33,20 @@ const createColumn = (points) => ({
         type: "spline",
         data: points.map((item) => item.y)
     }
-    ]
+    ],
+    title: {
+        text: 'lợi nhuận quý',
+        style: {
+            fontFamily: "Segoe UI",
+            fontSize: 14,
+            fontWeight: "bold"
+        }, 
+    },
+    chart: {
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 15
+    },
 })
 
 function ColumnChart() {

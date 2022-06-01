@@ -9,43 +9,34 @@ function ValuationCharts() {
     <Row>
       <Col xs={12} xl={6}>
         <Row>
-          <Col xs={12} xl={6}>
-            <div>
-              {" "}
-              <ColumnChart />{" "}
-            </div>
-          </Col>
+            <Col xs={12} xl={7}>
+                <Row>
+                    <Col xs={12} xl={6} className='p-0'>
+                        <div> <ColumnChart/> </div>
+                    </Col>
 
-          <Col xs={12} xl={6}>
-            <div>Chart 2</div>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} xl={6}>
-            <div>Chart 3</div>
-          </Col>
+                    <Col xs={12} xl={6} className='p-0'>
+                        <div><ColumnChart/></div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} xl={6} className='p-0'>
+                        <div><ColumnChart/></div>
+                    </Col>
 
-          <Col xs={12} xl={6}>
-            <div>Chart 4</div>
-          </Col>
-        </Row>
-      </Col>
+                    <Col xs={12} xl={6} className='p-0'>
+                        <div><ColumnChart/></div>
+                    </Col>
+                </Row>
+            </Col>
 
-      <Col xs={12} xl={6}>
-        <Row>
-          <Col xs={12} xl={12}>
-            <div>
-              <BulletChart />
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <div>Bullet Chart</div> {/*Bullet chart ở đây*/}
-          <Col xs={12} xl={6}>
-            <div>
-              <IndustryBoxPlot />
-            </div>
-          </Col>
+            <Col xs={12} xl={5}>
+                <Row>
+                    <div>Bullet Chart</div> {/*Bullet chart ở đây*/}
+                    <Col xs={12} xl={6}>
+                        <div><IndustryBoxPlot /></div>
+                    </Col>
+
         </Row>
       </Col>
     </Row>
