@@ -10,13 +10,22 @@ const createColumn = (points) => ({
     xAxis: {
         data: points.map((item) => item.name)
     },
-    yAxis: [{},{opposite: true}],
+    yAxis: [{
+        title: false
+    },
+    {
+        opposite: true,
+        labels: {
+            format: '{text}%'
+        },
+        title: false
+    }],
     series: [
     {
         yAxis: 0,
         name: "column",
         type: "column",
-        data: points.map((item) => item.x)
+        data: points.map((item) => item.x),
     },
     {
         yAxis: 1,
@@ -34,8 +43,10 @@ const createColumn = (points) => ({
         }, 
     },
     chart: {
-        borderWidth: 3
-    }
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 15
+    },
 })
 
 function ColumnChart() {
