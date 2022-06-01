@@ -1,7 +1,7 @@
 import React from "react";
 import TreeMap from "./TreeMap";
 import TwoHalfBarChart from "./TwoHalfBarChart";
-import { Row, Col} from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 function TwoChart() {
     return (
@@ -23,4 +23,4 @@ function TwoChart() {
     )
 };
 
-export default TwoChart
+export default TwoChart;

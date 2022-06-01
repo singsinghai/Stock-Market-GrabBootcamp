@@ -10,7 +10,7 @@ function IndustryBoxPlot() {
         data.sort();
         var index = (percentile / 100) * data.length;
         var result;
-        if (Math.floor(index) == index) {
+        if (Math.floor(index) === index) {
             result = (data[(index - 1)] + data[index]) / 2;
         } else {
             result = data[Math.floor(index)];
