@@ -103,7 +103,7 @@ function TreeMap() {
     const [points, setPoints] = useState([]);
     const chartOptions = useMemo(() => createChartOptions(points), [points]);
     useEffect(() => {
-        setInterval(() => {fetch(url)
+        fetch(url)
             .then(result => result.json())
             .then(data => {
                 var industryI = 0,
@@ -143,8 +143,7 @@ function TreeMap() {
                     industryI++;
                 }
                 setPoints(points);
-            })
-        }, 10000);
+            });
     }, [])
 
     return (

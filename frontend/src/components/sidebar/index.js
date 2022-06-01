@@ -49,7 +49,7 @@ export default function SidebarWithHeader({
 
             {/* Now the header comes in */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} pl="3">
+            <Box ml={{ base: 0, md: 60 }} p="3" pl="3">
                 {children}
             </Box>
         </Box>
@@ -125,7 +125,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             px={{ base: 0, md: 0 }}
             height="20"
             alignItems="center"
-            bg={useColorModeValue('#02B04E', 'gray.900')}
+            bg={useColorModeValue('#02A54B', 'gray.900')}
             borderBottomWidth="1px"
             borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
             justifyContent={{ base: 'space-between', md: 'center' }}
