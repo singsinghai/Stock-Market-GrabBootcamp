@@ -7,7 +7,7 @@ import { seo } from "../../helper";
 export const HomePage = ({ market_data }) => {
   useEffect(() => {
     seo({
-      title: "Hẻ Cu Lé - homepage",
+      title: "HERCULÉ - Trang chủ",
       metaDescription: "homepage",
     });
   }, []);
