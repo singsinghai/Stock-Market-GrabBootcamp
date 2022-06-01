@@ -9,7 +9,7 @@ import {
     FiCompass, FiHome, FiMenu, FiStar, FiTrendingUp
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import SearchBar from '../searchbar';
+import SearchBar from '../SearchBar';
 import '../../index.css';
 
 
@@ -17,7 +17,7 @@ import '../../index.css';
 const LinkItems = [
     { name: 'Trang chủ', icon: FiHome , to: "/"},
     { name: 'Định giá công ty', icon: FiStar , to: "/company/VIC"},
-    { name: 'Xếp hạng công ty', icon: FiTrendingUp, to: "/xxx"},
+    { name: 'Xếp hạng công ty', icon: FiTrendingUp, to: "/company-ranking"},
     { name: 'Về chúng tôi', icon: FiCompass, to: "/xxx"},
 ];
 

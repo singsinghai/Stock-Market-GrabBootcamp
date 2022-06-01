@@ -10,7 +10,7 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 require('highcharts/modules/annotations')(Highcharts);
 
-export const MarketPriceChart = ({ data, current_market }) => {
+function MarketPriceChart ({ data, current_market }) {
 
     // Draw the chart if data is not null
 
@@ -119,3 +119,5 @@ export const MarketPriceChart = ({ data, current_market }) => {
         />
     );
 }
+
+export default MarketPriceChart;
