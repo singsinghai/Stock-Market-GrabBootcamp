@@ -2,7 +2,6 @@ import React from "react";
 import { Market } from "./Market";
 import TwoChart from "./TwoChart"
 import { Loading } from "../Loading";
-import { Row, Col} from "react-bootstrap";
 
 export const HomePage = ({ market_data }) => {
     return (
