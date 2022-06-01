@@ -27,7 +27,7 @@ const createColumn = (points) => ({
     ]
 })
 
-function ColumnChart(){
+function ColumnChart() {
     const optionColumn = createColumn(data)
     return (
         <HighchartsReact
