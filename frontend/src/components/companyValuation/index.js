@@ -1,7 +1,6 @@
 import { Spinner, Image, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { seo } from "../../helper";
 import Header from "./Header";
@@ -34,7 +33,7 @@ function CompanyValuation() {
   useEffect(() => {
     fetchCompanyInfo();
     seo({
-      title: `${company_symbol} - Doanh nghiệp | Hẻ Cu Lé`,
+      title: `${company_symbol} - Doanh nghiệp | HERCULÉ`,
       metaDescription: "homepage",
     });
   }, []);
