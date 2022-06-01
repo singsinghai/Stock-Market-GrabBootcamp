@@ -5,7 +5,7 @@ import HighchartsMore from 'highcharts/highcharts-more';
 
 HighchartsMore(Highcharts);
 
-export const IndustryBoxPlot = () => {
+function IndustryBoxPlot() {
     function getPercentile(data, percentile) {
         data.sort();
         var index = (percentile / 100) * data.length;
@@ -42,17 +42,16 @@ export const IndustryBoxPlot = () => {
     const options = {
         chart: {
             type: "boxplot",
-            height: "300px",
-            width: 400
+            //height: "300px",
         },
 
         title: {
-            text: 'Biên an toàn các công ty cùng ngành',
+            text: 'Tỷ lệ biên an toàn của các công ty cùng ngành',
             style: {
                 fontFamily: "Segoe UI",
                 fontSize: 14,
                 fontWeight: "bold"
-            }
+            }, 
         },
 
         legend: {
@@ -61,9 +60,6 @@ export const IndustryBoxPlot = () => {
 
         xAxis: {
             categories: '1',
-            // title: {
-            //     text: 'Experiment No.'
-            // }
         },
 
         yAxis: {
@@ -73,12 +69,16 @@ export const IndustryBoxPlot = () => {
         },
 
         series: [{
+            dataLabels: {
+                align: 'left',
+                enabled: true
+            },
             name: 'Observations',
             data: [boxData],
             tooltip: {
                 headerFormat: '<em>Experiment No {point.key}</em><br/>'
             },
-            pointWidth: 50,
+            pointWidth: 40,
             color: "black",
             fillColor: "gray"
         }, {
@@ -104,3 +104,5 @@ export const IndustryBoxPlot = () => {
         />
     );
 }
+
+export default IndustryBoxPlot;

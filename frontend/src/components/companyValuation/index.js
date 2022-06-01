@@ -3,9 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { IndustryBoxPlot } from "./IndustryBoxPLot";
-import { SplitView } from "../splitview";
-import ColumnChart from  "./ColumnChart"
+import ValuationCharts from "./ValuationCharts";
 
 function CompanyValuation() {
     const [company, setCompany] = useState({});
@@ -87,32 +85,8 @@ function CompanyValuation() {
                     </Row>
                     <Row></Row>
                 </Container>
-
-                <SplitView
-                    left={ //Nửa màn hình bên trái
-                        <div>
-                            <SplitView
-                                left={<div> <ColumnChart/> </div>} //Chart 1
-                                right={<div>Chart 2</div>} //Chart 2
-                            />
-                            <SplitView
-                                left={<div>Chart 3</div>} //Chart 3
-                                right={<div>Chart 4</div>} //Chart 4
-                            />
-                        </div>
-                    }
-
-                    right={ //Nửa màn hình bên phải
-                        <div>
-                            Bullet Chart {/*Bullet chart ở đây*/}
-                            <SplitView 
-                                left={<div><IndustryBoxPlot/></div>} //Boxplot
-                                right={<div>Bảng định giá</div>} //Bảng định giá
-                            />
-                        </div>}
-                />
-
-            </div>
+                <ValuationCharts/>           
+            </div >
         );
     }
 }
