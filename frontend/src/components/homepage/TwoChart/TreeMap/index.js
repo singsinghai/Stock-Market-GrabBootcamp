@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import Highcharts from "highcharts";
 import HighchartsData from "highcharts/modules/data";
 import HighchartsExporting from "highcharts/modules/exporting";
@@ -6,6 +6,7 @@ import HighchartsHeatmap from "highcharts/modules/heatmap";
 import HighchartsTreeChart from "highcharts/modules/treemap";
 import HighchartsReact from "highcharts-react-official";
 import { Loading } from "../../../Loading";
+
 
 HighchartsData(Highcharts);
 HighchartsHeatmap(Highcharts);
@@ -85,12 +86,13 @@ const createChartOptions = (points) => ({
     credits: false,
     chart: {
         height: 300,
-		backgroundColor: '#f5f5f5'
+		backgroundColor: '#f5f5f5',
     }
 });
 
 // code start from here
 function TreeMap() {
+    const chartComponent = useRef(null);
     let url = 'http://139.180.215.250/api/stock-price/all/';
     let d = new Date()
     // 60 * 60 * 1000 mean 1 hour 
@@ -98,11 +100,10 @@ function TreeMap() {
     //  so I decrease 6 hours 
     d.setTime(d.getTime() - 60 * 60 * 1000 * 6) 
     url += d.getFullYear() +'-'+months[d.getMonth()]+'-'+d.getDate()
-    console.log(url)
     const [points, setPoints] = useState([]);
     const chartOptions = useMemo(() => createChartOptions(points), [points]);
     useEffect(() => {
-        fetch(url)
+        setInterval(() => {fetch(url)
             .then(result => result.json())
             .then(data => {
                 var industryI = 0,
@@ -143,12 +144,14 @@ function TreeMap() {
                 }
                 setPoints(points);
             })
+        }, 10000);
     }, [])
+
     return (
         points.length === 0?
         <Loading />
         : <div>
-            <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+            <HighchartsReact ref={chartComponent} highcharts={Highcharts} options={chartOptions} />
         </div>
     );
 }

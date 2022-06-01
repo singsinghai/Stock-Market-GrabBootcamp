@@ -4,20 +4,20 @@ import { Loading } from "../../../Loading";
 
 const createBarChart = (res) => {
   // data processing
-  // take symbol having highest totalForeignValue
-  // take symbol having lowest totalForeignValue
-  // take 10 symbol having highest totalForeignValue
-  // take 10 symbol having lowest totalForeignValue
+  // take symbol having highest total_foreign_value
+  // take symbol having lowest total_foreign_value
+  // take 10 symbol having highest total_foreign_value
+  // take 10 symbol having lowest total_foreign_value
   if(res === null) return
-  const max_value_green = res[0].totalForeignValue;
-  const max_value_red = res[res.length -1].totalForeignValue;
+  const max_value_green = res[0].total_foreign_value;
+  const max_value_red = res[res.length -1].total_foreign_value;
   const data_red = res.slice(-10).reverse().map(item => ({
     ...item,
-    value: item.totalForeignValue * 100 / max_value_red
+    value: item.total_foreign_value * 100 / max_value_red
   }));;
   const data_green = res.slice(0,10).map(item => ({
     ...item,
-    value: item.totalForeignValue * 100 / max_value_green
+    value: item.total_foreign_value * 100 / max_value_green
   }));
   // format data to show chart
   const list_green = data_green.map((item) => 
@@ -29,7 +29,7 @@ const createBarChart = (res) => {
       </div>
       <div className="col-9 flex-col-reverse d-flex flex-row-reverse">
         <div className="bg-green my-auto rounded ms-1" style={{width:item.value, height:15}}></div>
-        <span> {Math.round(item.totalForeignValue / 100000000)/10}</span>
+        <span> {Math.round(item.total_foreign_value / 100000000)/10}</span>
       </div>
     </div>    
   )
@@ -42,7 +42,7 @@ const createBarChart = (res) => {
       </div>
       <div className="col-9 flex-col-reverse d-flex flex-row">
         <div className="bg-red my-auto rounded me-1" style={{width:item.value, height:15}}></div>
-        <span>{Math.round(item.totalForeignValue / -100000000)/10}</span>
+        <span>{Math.round(item.total_foreign_value / -100000000)/10}</span>
       </div>
     </div>    
   )
@@ -66,12 +66,11 @@ function TwoHalfBarChart(){
     const [points, setPoints] = useState(null);
     const BarChart = useMemo(() => createBarChart(points), [points]);
     useEffect(() => {
-        fetch('http://139.180.215.250/api/stock-price/top-foreign-value')
+      setInterval(() => {fetch('http://139.180.215.250/api/stock-price/top-foreign-value')
             .then(result => result.json())
             .then(data => {
-                points = data;
                 setPoints(data)
-            })
+            })}, 10000);
         },[])
     return points? BarChart: <Loading />
 }
