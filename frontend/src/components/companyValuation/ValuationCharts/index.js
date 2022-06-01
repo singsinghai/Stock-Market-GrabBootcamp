@@ -7,28 +7,28 @@ import { Col, Row } from "react-bootstrap";
 function ValuationCharts() {
     return (
         <Row>
-            <Col xs={12} xl={6}>
+            <Col xs={12} xl={7}>
                 <Row>
-                    <Col xs={12} xl={6}>
+                    <Col xs={12} xl={6} className='p-0'>
                         <div> <ColumnChart/> </div>
                     </Col>
 
-                    <Col xs={12} xl={6}>
-                        <div>Chart 2</div>
+                    <Col xs={12} xl={6} className='p-0'>
+                        <div><ColumnChart/></div>
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12} xl={6}>
-                        <div>Chart 3</div>
+                    <Col xs={12} xl={6} className='p-0'>
+                        <div><ColumnChart/></div>
                     </Col>
 
-                    <Col xs={12} xl={6}>
-                        <div>Chart 4</div>
+                    <Col xs={12} xl={6} className='p-0'>
+                        <div><ColumnChart/></div>
                     </Col>
                 </Row>
             </Col>
 
-            <Col xs={12} xl={6}>
+            <Col xs={12} xl={5}>
                 <Row>
                     <div>Bullet Chart</div> {/*Bullet chart ở đây*/}
                     <Col xs={12} xl={6}>
