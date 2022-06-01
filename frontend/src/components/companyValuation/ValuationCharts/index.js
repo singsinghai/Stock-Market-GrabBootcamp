@@ -1,11 +1,13 @@
-import IndustryBoxPlot from "./IndustryBoxPLot"
-import ColumnChart from "./ColumnChart"
+import IndustryBoxPlot from "./IndustryBoxPLot";
+import ColumnChart from "./ColumnChart";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-
+import BulletChart from "./BulletChart";
 
 function ValuationCharts() {
-    return (
+  return (
+    <Row>
+      <Col xs={12} xl={6}>
         <Row>
             <Col xs={12} xl={7}>
                 <Row>
@@ -35,16 +37,10 @@ function ValuationCharts() {
                         <div><IndustryBoxPlot /></div>
                     </Col>
 
-                    <Col xs={12} xl={6}>
-                        <div>Bảng định giá</div>
-                    </Col>
-                </Row>
-            </Col>
         </Row>
-    )
+      </Col>
+    </Row>
+  );
 }
-
-
-
 
 export default ValuationCharts;

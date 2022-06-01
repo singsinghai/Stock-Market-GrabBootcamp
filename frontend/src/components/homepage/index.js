@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Market } from "./Market";
-import TwoChart from "./TwoChart"
+import TwoChart from "./TwoChart";
 import { Loading } from "../Loading";
+import { seo } from "../../helper";
 
 export const HomePage = ({ market_data }) => {
-    return (
-        <div >
-            <div className="title">Diễn biến thị trường</div>
-            {market_data ? <Market data={market_data} /> : <Loading height={"400px"}/>}
-            <TwoChart />
-        </div>
-    );
+  useEffect(() => {
+    seo({
+      title: "Hẻ Cu Lé - homepage",
+      metaDescription: "homepage",
+    });
+  }, []);
+  return (
+    <div>
+      <div className="title">Diễn biến thị trường</div>
+      {market_data ? (
+        <Market data={market_data} />
+      ) : (
+        <Loading height={"400px"} />
+      )}
+      <TwoChart />
+    </div>
+  );
 };
