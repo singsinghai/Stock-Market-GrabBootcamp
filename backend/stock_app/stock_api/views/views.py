@@ -5,8 +5,8 @@ from django.db import connection
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
-from ..models import StockPrice, Company, MarketPrice
-from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer
+from ..models import StockPrice, Company, MarketPrice, FinancialStatement
+from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer, FinancialStatementSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from datetime import datetime
@@ -24,6 +24,21 @@ class CompanyViewSet(viewsets.ReadOnlyModelViewSet):
 class MarketPriceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = MarketPrice.objects.all()
     serializer_class = MarketPriceSerializer
+
+
+class FinancialRatioViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = FinancialStatement.objects.all()
+    serializer_class = FinancialRatioSerializer
+    renderer_classes = [JSONRenderer]
+    
+    def get_stock_financial_statement(self, request, company=None):
+        sql = """
+        SELECT * FROM stock_api_financialstatement WHERE company_id = %s
+        """
+        history = StockPrice.objects.raw(sql, [company])
+        
+        serializer = self.get_serializer(history, many=True)
+        return Response(serializer.data)
 
 
 class StockPriceViewSet(viewsets.ReadOnlyModelViewSet):

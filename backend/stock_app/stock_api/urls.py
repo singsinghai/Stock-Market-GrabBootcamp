@@ -22,5 +22,8 @@ urlpatterns = [
     })),
     path(r'stock-price/all/<slug:trading_date>', StockPriceViewSet.as_view({
         'get': 'get_stock_price_history_group_by_industry'
-    }))
+    })),
+    path(r'financial-statements/<slug:company>', StockPriceViewSet.as_view({
+        'get': 'get_stock_financial_statement'
+    })),
 ]
