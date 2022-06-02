@@ -70,7 +70,6 @@ function ProfitCharts({ company_symbol }) {
         }
         profit_TTM = profit_TTM.slice(8);
         profit_yoy_TTM = profit_yoy_TTM.slice(8);
-        console.log(profit_TTM, profit_yoy_TTM)
 
 
     }

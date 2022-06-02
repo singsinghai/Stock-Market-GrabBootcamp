@@ -5,7 +5,6 @@ import ProfitMargin from "./ProfitMargin";
 
 function MultiLines({ company_symbol }) {
 
-
     return (
         < Row >
             <Col xs={12} xl={6} className='p-0'>

@@ -7,23 +7,32 @@ import { Loading } from '../../../Loading';
 
 HighchartsMore(Highcharts);
 
-function IndustryBoxPlot() {
-    const [industry_data, setData] = useState(null);
-    let options = {}
+function IndustryBoxPlot({company_symbol}) {
+    // const [industry_data, setData] = useState(null);
+    // let options = {}
 
-    const IndustryData = () => {
-        const url = "";
+    // const IndustryData = () => {
+    //     const url = "http://139.180.215.250/api/business-valuation";
     
-        async function fetchData() {
-            const res = await ApiCaller(url);
-            setData(res)
-        }
+    //     async function fetchData() {
+    //         const res = await ApiCaller(url);
+    //         setData(res)
+    //     }
     
-        useEffect(() => {
-            fetchData();
-        }, []);
-    }
+    //     useEffect(() => {
+    //         fetchData();
+    //     }, []);
+    // }
     //IndustryData()
+    const industry_data = [11, 12,13,14,15,14,15,16,12,2,5,1,6,7,24,25,26,14,12,12,15,13,14,15,16,18,19,20,21,31]
+    function getEvaluation(json) {
+        return (json.book_value + json.earning_per_share + json.enterprise_value 
+            + json.ev_over_ebit + json.ev_over_ebitda + json.ev_sales + json.price_to_book
+            + json.price_earnings + json.price_to_sales + json.market_cap) / 10
+    }
+    let options = {}
+    
+
 
     function getPercentile(data, percentile) {
         data.sort();
@@ -79,7 +88,7 @@ function IndustryBoxPlot() {
             },
     
             xAxis: {
-                categories: ['company'],
+                categories: [company_symbol],
             },
     
             yAxis: {
@@ -112,7 +121,7 @@ function IndustryBoxPlot() {
                     lineColor: "purple"
                 },
                 tooltip: {
-                    pointFormat: 'Định giá: {point.y}'
+                    pointFormat: 'Biên an toàn: {point.y}'
                 }
             }]
         }

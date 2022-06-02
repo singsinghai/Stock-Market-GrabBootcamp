@@ -15,7 +15,6 @@ function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const location = useLocation()
   let n = 0
-  console.log(location)
   if (location.pathname.includes('company')){
     n = 1
   }
