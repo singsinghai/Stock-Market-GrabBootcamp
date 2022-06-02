@@ -122,7 +122,7 @@ function IndustryBoxPlot() {
         industry_data ? <HighchartsReact
             highcharts={Highcharts}
             options={options}
-        /> : <Loading/>
+        /> : <Loading height="100px"/>
     );
 }
 

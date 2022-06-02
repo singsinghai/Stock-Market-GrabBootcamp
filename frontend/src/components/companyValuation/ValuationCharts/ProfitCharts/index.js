@@ -41,7 +41,7 @@ function ProfitCharts({ company_symbol }) {
         for (let i = 0; i < profit_yoy.length; i++) {
             temp_yoy[i] = profit_yoy[i]
             if (i >= 4) {
-                profit_yoy[i] = ((temp_yoy[i] - temp_yoy[i - 4]) / temp_yoy[i - 4] * 100)
+                profit_yoy[i] = ((temp_yoy[i] - temp_yoy[i - 4]) / temp_yoy[i - 4] * 100);
             }
         }
         profit_yoy = profit_yoy.slice(4);
