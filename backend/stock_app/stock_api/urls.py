@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import CompanyViewSet, MarketPriceViewSet, StockPriceViewSet, FinancialStatementViewSet, FinancialRatioViewSet
+from .views import CompanyViewSet, MarketPriceViewSet, StockPriceViewSet, FinancialStatementViewSet, FinancialRatioViewSet, BusinessValuationViewSet
 
 urlpatterns = [
     path('company', CompanyViewSet.as_view({
