@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsMore from 'highcharts/highcharts-more';
+import ApiCaller from '../../../../api/ApiCaller';
+import { Loading } from '../../../Loading';
 
 HighchartsMore(Highcharts);
 
 function IndustryBoxPlot() {
+    const [industry_data, setData] = useState(null);
+    let options = {}
+
+    const IndustryData = () => {
+        const url = "";
+    
+        async function fetchData() {
+            const res = await ApiCaller(url);
+            setData(res)
+        }
+    
+        useEffect(() => {
+            fetchData();
+        }, []);
+    }
+    //IndustryData()
+
     function getPercentile(data, percentile) {
         data.sort();
         var index = (percentile / 100) * data.length;
@@ -18,89 +37,92 @@ function IndustryBoxPlot() {
         return result;
     }
 
-    function getBoxValues(data) {
-        let q1 = getPercentile(data, 25),
-            median = getPercentile(data, 50),
-            q3 = getPercentile(data, 75),
-            iqr = q3 - q1,
-            lowerFence = q1 - (iqr * 1.5),
-            upperFence = q3 + (iqr * 1.5);
-
-        const boxData = {
-            low: lowerFence,
-            q1: q1,
-            median: median,
-            q3: q3,
-            high: upperFence
-        };
-
-        return boxData;
-    }
-    const data = [2.5, 22, 10, 11, 12, 13, 14, 15, 14, 13, 12, 12, 13, 14, 15, 11, 12, 13, 14, 15, 11, 12, 13, 14, 15, 19, 18, 4, 6, 15, 16, 2, 14].sort()
-    const boxData = getBoxValues(data)
-
-    const options = {
-        chart: {
-            type: "boxplot",
-            //height: "300px",
-        },
-
-        title: {
-            text: 'Tỷ lệ biên an toàn của các công ty cùng ngành',
-            style: {
-                fontFamily: "Segoe UI",
-                fontSize: 14,
-                fontWeight: "bold"
-            }, 
-        },
-
-        legend: {
-            enabled: false
-        },
-
-        xAxis: {
-            categories: ['company'],
-        },
-
-        yAxis: {
+    if (industry_data) {
+        function getBoxValues(data) {
+            let q1 = getPercentile(data, 25),
+                median = getPercentile(data, 50),
+                q3 = getPercentile(data, 75),
+                iqr = q3 - q1,
+                lowerFence = q1 - (iqr * 1.5),
+                upperFence = q3 + (iqr * 1.5);
+    
+            const boxData = {
+                low: lowerFence,
+                q1: q1,
+                median: median,
+                q3: q3,
+                high: upperFence
+            };
+    
+            return boxData;
+        }
+    
+        const boxData = getBoxValues(industry_data)
+    
+        options = {
+            chart: {
+                type: "boxplot",
+                //height: "300px",
+            },
+    
             title: {
-                text: ''
+                text: 'Tỷ lệ biên an toàn của các công ty cùng ngành',
+                style: {
+                    fontFamily: "Segoe UI",
+                    fontSize: 14,
+                    fontWeight: "bold"
+                }, 
             },
-        },
-
-        series: [{
-            dataLabels: {
-                align: 'left',
-                enabled: true
+    
+            legend: {
+                enabled: false
             },
-            name: 'IndustryValues',
-            data: [boxData],
-            tooltip: {
+    
+            xAxis: {
+                categories: ['company'],
             },
-            pointWidth: 40,
-            color: "black",
-            fillColor: "gray"
-        }, {
-            name: 'CompanyValue',
-            color: "red",
-            type: 'scatter',
-            data: [[0, 13]],
-
-            marker: {
-                fillColor: "violet",
-                lineWidth: 1,
-                lineColor: "purple"
+    
+            yAxis: {
+                title: {
+                    text: ''
+                },
             },
-            tooltip: {
-                pointFormat: 'Định giá: {point.y}'
-            }
-        }]
+    
+            series: [{
+                dataLabels: {
+                    align: 'left',
+                    enabled: true
+                },
+                name: 'IndustryValues',
+                data: [boxData],
+                tooltip: {
+                },
+                pointWidth: 40,
+                color: "black",
+                fillColor: "gray"
+            }, {
+                name: 'CompanyValue',
+                color: "red",
+                type: 'scatter',
+                data: [[0, 13]],
+    
+                marker: {
+                    fillColor: "violet",
+                    lineWidth: 1,
+                    lineColor: "purple"
+                },
+                tooltip: {
+                    pointFormat: 'Định giá: {point.y}'
+                }
+            }]
+        }
     }
+    
     return (
-        <HighchartsReact
+        industry_data ? <HighchartsReact
             highcharts={Highcharts}
             options={options}
-        />
+        /> : <Loading/>
     );
 }
 

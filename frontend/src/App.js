@@ -12,6 +12,9 @@ import NavBar from './components/TestSideBar/Navbar'
 
 
 function App() {
+
+    // API này tốn hơn 1s để fetch
+    // Ta chỉ fetch nó 1 lần, tránh hạn chế fetch lại khi reload component Market
     const [market_data, setMarketData] = useState(null);
     const GetMarketData = () => {
         const url = 'http://139.180.215.250/api/market-price?format=json';
