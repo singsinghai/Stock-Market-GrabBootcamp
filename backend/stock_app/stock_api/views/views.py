@@ -26,7 +26,7 @@ class MarketPriceViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MarketPriceSerializer
 
 
-class FinancialRatioViewSet(viewsets.ReadOnlyModelViewSet):
+class FinancialStatementViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = FinancialStatement.objects.all()
     serializer_class = FinancialStatementSerializer
     renderer_classes = [JSONRenderer]
