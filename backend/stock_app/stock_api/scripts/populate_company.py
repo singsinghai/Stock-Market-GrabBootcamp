@@ -3,10 +3,10 @@ This is a script to populate company table with data fetched from fireant and vn
 """
 import requests
 import time
-from stock_app.stock_api.models import Company
-from stock_app.settings import FIREANT_BEARER_TOKEN
-from scripts import HTTP_HEADERS
-import pytz
+from ..models import Company
+from ...settings import FIREANT_BEARER_TOKEN
+from ..scripts import HTTP_HEADERS
+
 def get_company_list(floor_code):
 
     VNDIRECT_API_ENDPOINT = f"https://finfo-api.vndirect.com.vn/stocks?floor={floor_code}"
@@ -20,7 +20,7 @@ def get_company_list(floor_code):
 
 
 def run(*args):
-    if args[0]:
+    if args and args[0]:
         market = args[0]
     else:
         market = "HOSE"

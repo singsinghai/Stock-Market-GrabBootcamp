@@ -2,20 +2,20 @@
 import {
     Box,
     CloseButton, Drawer,
-    DrawerContent, Flex, Icon, IconButton, Link, Text, useColorModeValue, useDisclosure
+    DrawerContent, Flex, Icon, IconButton, Text, useColorModeValue, useDisclosure
 } from '@chakra-ui/react';
 import React from 'react';
 import {
     FiCompass, FiHome, FiMenu, FiSettings, FiStar, FiTrendingUp
 } from 'react-icons/fi';
-import { Link as ReachLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar';
 
-// List of items on the sidebar
+// List of items on the sidebar, controlled by the NavItem component below
 const LinkItems = [
     { name: 'Trang chủ', icon: FiHome , to: "/"},
     { name: 'Bộ lọc cổ phiếu', icon: FiTrendingUp , to: "/xxx"},
-    { name: 'Định giá doanh nghiệp', icon: FiCompass , to: "/xxx"},
+    { name: 'Định giá doanh nghiệp', icon: FiCompass , to: "/company/VIC"},
     { name: 'Xếp hạng công ty', icon: FiStar , to: "/xxx"},
     { name: 'Về chúng tôi', icon: FiSettings , to: "/xxx"},
 ];
@@ -48,7 +48,7 @@ export default function SidebarWithHeader({
 
             {/* Now the header comes in */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} p="4" pl="8">
+            <Box ml={{ base: 0, md: 60 }} pl="8">
                 {children}
             </Box>
         </Box>
@@ -74,7 +74,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
+                
                 <NavItem key={link.name} to={link.to} icon={link.icon}>
+                
                     {link.name}
                 </NavItem>
             ))}
@@ -85,7 +87,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 // Design and format the items in the sidebar, add their additional icons
 const NavItem = ({ to, icon, children, ...rest }) => {
     return (
-        <Link href={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link to={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex
                 align="center"
                 p="4"
@@ -118,8 +120,8 @@ const NavItem = ({ to, icon, children, ...rest }) => {
 const MobileNav = ({ onOpen, ...rest }) => {
     return (
         <Flex
-            ml={{ base: 0, md: 60 }}
-            px={{ base: 4, md: 10 }}
+            ml={{ base: 0, md: 0 }}
+            px={{ base: 0, md: 0 }}
             height="20"
             alignItems="center"
             bg={useColorModeValue('#02B04E', 'gray.900')}
