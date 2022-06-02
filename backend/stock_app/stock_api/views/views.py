@@ -28,7 +28,7 @@ class MarketPriceViewSet(viewsets.ReadOnlyModelViewSet):
 
 class FinancialRatioViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = FinancialStatement.objects.all()
-    serializer_class = FinancialRatioSerializer
+    serializer_class = FinancialStatementSerializer
     renderer_classes = [JSONRenderer]
     
     def get_stock_financial_statement(self, request, company=None):
