@@ -81,15 +81,15 @@ function CompanyRanking() {
             return cell.getValue();
         },
     },
-    { title: "Biên an toàn", field: "mean", headerHozAlign: "center", hozAlign: "center", formmater: update_percentage_color },
+    //{ title: "Biên an toàn", field: "mean", headerHozAlign: "center", hozAlign: "center", formmater: update_percentage_color },
     { title: "T.trưởng DT 4 quý gần nhất", field: "net_revenue", hozAlign: "center", titleFormatter: "textarea", headerHozAlign: "center", formatter: update_percentage_color },
     { title: "T.trưởng LN 4 quý gần nhất", field: "profit_after_taxes", titleFormatter: "textarea", headerHozAlign: "center", hozAlign: "center", formatter: update_percentage_color },
     { title: "ROE", field: "ROE", headerHozAlign: "center", hozAlign: "center", formmater: update_percentage_color },
     { title: "ROA", field: "ROA", headerHozAlign: "center", hozAlign: "center", formmater: update_percentage_color },
     { title: "ROIC", field: "ROIC", headerHozAlign: "center", hozAlign: "center", formmater: update_percentage_color },
-    { title: "Cổ tức", field: "dividend_payout_ratio", headerHozAlign: "center", hozAlign: "center", formmater: update_percentage_color },
+    //{ title: "Cổ tức", field: "dividend_payout_ratio", headerHozAlign: "center", hozAlign: "center", formmater: update_percentage_color },
     ];
-    
+
     return (
         (statement_data) ? company ? <Navigate to={`/company/${company}`} />
             : <ReactTabulator

@@ -42,7 +42,6 @@ const createChartOptions = (points) => ({
                     align: "left",
                     color: 'black',
                     formatter: function () {
-                        //console.log(this.point.shapeArgs, this.point.name)
                         if (this.point.shapeArgs) {
                             if (this.point.shapeArgs.width > this.point.name.length * 6 && this.point.shapeArgs.height > 30)
                                 return this.point.name

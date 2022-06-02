@@ -6,11 +6,12 @@ import ProfitCharts from "./ProfitCharts";
 import MultiLines from "./MultiLines";
 import EvaluationTable from "./EvaluationTable";
 
-function ValuationCharts({company_symbol, company}) {
+
+function ValuationCharts({company_symbol, businessValue}) {
     return (
         <div>
             <ProfitCharts company_symbol={company_symbol}/>
-            <MultiLines company_symbol={company_symbol}/>
+            <MultiLines company_symbol={company_symbol} businessValue={businessValue}/>
 
             <Row>
                 <div><BulletChart company_symbol={company_symbol}/></div> {/*Bullet chart ở đây*/}
