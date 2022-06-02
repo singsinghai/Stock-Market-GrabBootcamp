@@ -4,7 +4,7 @@ import {
 } from '@chakra-ui/react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
@@ -13,7 +13,19 @@ import { act } from 'react-dom/test-utils';
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
-  const [pageActive, setPageActive] = useState(0)
+  const location = useLocation()
+  let n = 0
+  console.log(location)
+  if (location.pathname.includes('company')){
+    n = 1
+  }
+  if (location.pathname.includes('company-ranking')){
+    n = 2
+  }
+  if (location.pathname.includes('xxx')){
+    n = 3 
+  }
+  const [pageActive, setPageActive] = useState(n)
   const changePageActive = (e) => setPageActive(e)
   const showSidebar = () => setSidebar(!sidebar);
   return (

@@ -63,7 +63,7 @@ function CompanyValuation() {
     return (
       <div>
         <Header company={company} info={info}/>
-        <ValuationCharts />
+        <ValuationCharts company_symbol={company_symbol}/>
       </div>
     );
   }
