@@ -19,6 +19,12 @@ class MarketPrice(models.Model):
     trading_date = models.DateTimeField()
     price_close = models.FloatField()
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['trading_date'])
+        ]
+        unique_together = ['market_symbol', 'trading_date']
+
 # Bao cao tai chinh
 
 
@@ -26,21 +32,23 @@ class FinancialStatement(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     year = models.IntegerField()
     quarter = models.IntegerField()
-    long_term_financial_assets = models.BigIntegerField()
-    net_revenue = models.BigIntegerField()
-    net_profit = models.BigIntegerField()
-    profit_before_taxes = models.BigIntegerField()
-    profit_after_taxes = models.BigIntegerField()
-    inventory = models.BigIntegerField()
-    liabilities = models.BigIntegerField()
-    receivables = models.BigIntegerField()
-    fixed_assets = models.BigIntegerField()
-    cash_equivalents = models.BigIntegerField()
-    total_assets = models.BigIntegerField()
-    equity = models.BigIntegerField()
-    authorized_capital = models.BigIntegerField()
-    short_term_assets = models.BigIntegerField()
-    short_term_liabilities = models.BigIntegerField()
+    total_assets = models.BigIntegerField(null=True)
+    tangible_assets = models.BigIntegerField(null=True)
+    intangible_assets = models.BigIntegerField(null=True)
+    net_revenue = models.BigIntegerField(null=True)
+    profit_before_taxes = models.BigIntegerField(null=True)
+    profit_after_taxes = models.BigIntegerField(null=True)
+    inventory = models.BigIntegerField(null=True)
+    liabilities = models.BigIntegerField(null=True)
+    cash_and_cash_equivalents = models.BigIntegerField(null=True)
+    shortterm_liabilities = models.BigIntegerField(null=True)
+    longterm_liabilities = models.BigIntegerField(null=True)
+    cost_price = models.BigIntegerField(null=True)
+    equity = models.BigIntegerField(null=True)
+    fixed_assets_depreciation = models.BigIntegerField(null=True)
+    lending_cost = models.BigIntegerField(null=True)
+    shortterm_borrowings_financial_leases = models.BigIntegerField(null=True)
+    longterm_borrowings_financial_leases = models.BigIntegerField(null=True)
 
 # Gia co phieu
 
@@ -53,9 +61,15 @@ class StockPrice(models.Model):
     price_open = models.FloatField()
     price_close = models.FloatField()
     total_volume = models.BigIntegerField()
-    total_value = models.BigIntegerField(null=True)
+    total_value = models.BigIntegerField(default=0)
     buy_foreign_value = models.BigIntegerField()
     sell_foreign_value = models.BigIntegerField()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['trading_date'])
+        ]
+        unique_together = ['company', 'trading_date']
 
 # Chi so quan trong
 
