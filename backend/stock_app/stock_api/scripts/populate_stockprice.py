@@ -11,15 +11,14 @@ from django.db import connection
 from ...settings import FIREANT_BEARER_TOKEN
 from ..scripts import HTTP_HEADERS
 from datetime import datetime
+import concurrent.futures
 
 END_DATE = datetime.today().strftime('%Y-%m-%d')
 MAX_LIMIT = 10000
 OFFSET = 0
 
-
-def populate_stockprice(start_date, upsert=False, verbose=False):
-
-    company_list = Company.objects.all()
+def updatePrice(symbol, start_date):
+    api_endpoint = f"https://restv2.fireant.vn/symbols/{symbol}/historical-quotes"
 
     params = {
         "startDate": start_date,
@@ -27,6 +26,16 @@ def populate_stockprice(start_date, upsert=False, verbose=False):
         "offset": OFFSET,
         "limit": MAX_LIMIT
     }
+    HEADERS = HTTP_HEADERS
+    HEADERS['Authorization'] = f'Bearer {FIREANT_BEARER_TOKEN}'
+    api_response = requests.get(
+        api_endpoint, headers=HEADERS, params=params).json()
+    return api_response
+    
+def populate_stockprice(start_date, upsert=False, verbose=False):
+
+    company_list = Company.objects.all()
+
 
     stock_price_column_list = [field.get_attname_column()[1]
                                for field in StockPrice._meta.fields[1:]]
@@ -38,45 +47,40 @@ def populate_stockprice(start_date, upsert=False, verbose=False):
     start_time = time.time()
 
     row_cnt = 0
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=60) as executor:
+        # Start the load operations and mark each future with its URL
+        future_to_stock = {executor.submit(updatePrice, company.symbol, start_date): company for company in company_list}
+        for future in concurrent.futures.as_completed(future_to_stock):
+            symbol = future_to_stock[future].symbol
+            stock_history_price = []
+            api_response = future.result()
+            for trade in api_response:
+                stock_history_price.extend([
+                    symbol,
+                    datetime.fromisoformat(trade["date"]),
+                    trade["priceHigh"],
+                    trade["priceLow"],
+                    trade["priceOpen"],
+                    trade["priceClose"],
+                    trade["totalVolume"],
+                    trade["totalValue"],
+                    trade["buyForeignValue"],
+                    trade["sellForeignValue"]
+                ])
+            temp_sql = sql + ', '.join(['(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)']
+                                       * len(api_response))
 
-    for company in company_list:
+            if upsert:
+                temp_sql += "AS new ON DUPLICATE KEY UPDATE {}".format(
+                    ', '.join([f"{column} = new.{column}"for column in stock_price_column_list]))
 
-        api_endpoint = f"https://restv2.fireant.vn/symbols/{company.symbol}/historical-quotes"
-
-        HEADERS = HTTP_HEADERS
-        HEADERS['Authorization'] = f'Bearer {FIREANT_BEARER_TOKEN}'
-        api_response = requests.get(
-            api_endpoint, headers=HEADERS, params=params).json()
-
-        stock_history_price = []
-
-        for trade in api_response:
-            stock_history_price.extend([
-                company.pk,
-                datetime.fromisoformat(trade["date"]),
-                trade["priceHigh"],
-                trade["priceLow"],
-                trade["priceOpen"],
-                trade["priceClose"],
-                trade["totalVolume"],
-                trade["totalValue"],
-                trade["buyForeignValue"],
-                trade["sellForeignValue"]
-            ])
-
-        temp_sql = sql + ', '.join(['(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)']
-                                   * len(api_response))
-
-        if upsert:
-            temp_sql += "AS new ON DUPLICATE KEY UPDATE {}".format(
-                ', '.join([f"{column} = new.{column}"for column in stock_price_column_list]))
-
-        # Batch insert all stock_price records of a company
-        try:
-            cursor.execute(temp_sql, stock_history_price)
-            row_cnt += cursor.rowcount
-        except Exception as e:
-            print(f"Exception: {str(e)}")
+            # Batch insert all stock_price records of a company
+            try:
+                cursor.execute(temp_sql, stock_history_price)
+                row_cnt += cursor.rowcount
+            except Exception as e:
+                print(f"Exception: {str(e)}")
     
     if verbose:
         if upsert:
@@ -93,7 +97,7 @@ def run(*args):
     if args and args[0]:
         start_date = args[0]
     else:
-        start_date = "2019-01-01"
+        start_date = "2015-01-01"
 
     print("--BEGIN POPULATING STOCK_PRICE TABLE.--")
 

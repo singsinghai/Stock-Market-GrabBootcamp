@@ -42,19 +42,50 @@ class FinancialStatementViewSet(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
         sql = """
-        SELECT * 
-        FROM hercules.stock_api_financialstatement AS a
-        WHERE (
-            SELECT count(*) 
-            FROM hercules.stock_api_financialratio as b
-            WHERE b.company_id = a.company_id 
-                AND (b.year > a.year OR (b.year = a.year AND b.quarter > a.quarter))
-        ) <= 3
-        ORDER BY a.company_id, a.year DESC, a.quarter DESC;
+        WITH temp as (  SELECT net_revenue, profit_after_taxes, company_id, year, quarter
+                        FROM hercules.stock_api_financialstatement AS a
+                        WHERE (
+                            SELECT count(*) 
+                            FROM hercules.stock_api_financialratio as b
+                            WHERE b.company_id = a.company_id AND (b.year > a.year OR (b.year = a.year AND b.quarter > a.quarter))
+                            ) <= 0),
+             ratio as ( SELECT return_on_assets as roa, return_on_equity as roe, return_on_invested_capitals as roic, company_id
+                        FROM hercules.stock_api_financialratio AS a
+                        WHERE (
+                                SELECT count(*) 
+                                FROM hercules.stock_api_financialratio as b
+                                WHERE b.company_id = a.company_id 
+                                    AND (b.year > a.year OR (b.year = a.year AND b.quarter > a.quarter))
+                            ) = 0
+                        )
+
+            SELECT 
+                (temp.net_revenue - s.net_revenue) / s.net_revenue as dif_revenue,
+                (temp.profit_after_taxes - s.profit_after_taxes) / s.profit_after_taxes as dif_taxes,
+                s.company_id,
+                roa,
+                roe,
+                roic
+            FROM hercules.stock_api_financialstatement as s
+            JOIN temp on temp.company_id = s.company_id
+            JOIN ratio on temp.company_id = ratio.company_id
+            WHERE (s.year = temp.year - 1 AND s.quarter = temp.quarter + 1);
         """
-        queryset = FinancialRatio.objects.raw(sql)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
+            rows = cursor.fetchall()
+        return_data = []
+        for row in rows:
+            return_data.append({
+                "dif_revenue": row[0],
+                "dif_taxes": row[1],
+                "company_id": row[2],
+                "roa": row[3],
+                "roe": row[4],
+                "roic": row[5]
+            })
+        return Response(return_data)
+
 
 class FinancialRatioViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = FinancialRatio.objects.all()
@@ -70,7 +101,7 @@ class FinancialRatioViewSet(viewsets.ReadOnlyModelViewSet):
             FROM hercules.stock_api_financialratio as b
             WHERE b.company_id = a.company_id 
                 AND (b.year > a.year OR (b.year = a.year AND b.quarter > a.quarter))
-        ) <= 3
+        ) = 0
         ORDER BY a.company_id, a.year DESC, a.quarter DESC;
         """
         queryset = FinancialRatio.objects.raw(sql)

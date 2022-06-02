@@ -93,6 +93,7 @@ class BusinessValuation(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     year = models.IntegerField()
     quarter = models.IntegerField()
+    book_value = models.FloatField()
     earnings_per_share = models.FloatField()
     enterprise_value = models.FloatField()
     ev_over_ebit = models.FloatField()
@@ -102,4 +103,3 @@ class BusinessValuation(models.Model):
     price_earnings = models.FloatField()
     price_to_sales = models.FloatField()
     market_cap = models.BigIntegerField()
-    discounted_cash_flow = models.FloatField()
