@@ -9,7 +9,7 @@ import ValuationCharts from "./ValuationCharts";
 function CompanyValuation() {
   const [company, setCompany] = useState({});
   let { company_symbol } = useParams();
-
+  const [info, setInfo] = useState([]);
   const fetchCompanyInfo = async () => {
     axios
       .all([
@@ -25,11 +25,15 @@ function CompanyValuation() {
           const data = responses.map((res) => {
             return res.data;
           });
+          console.log(data[1][0].price_close)
+          let info = []
+          info.push(Math.round(data[0].shares_outstanding * data[1][0].price_close/10000000)/100)
+          info.push(Math.round(data[0].shares_outstanding/10000)/100)
+          setInfo(info)
           setCompany(Object.assign({}, ...data));
         })
       );
   };
-
   useEffect(() => {
     fetchCompanyInfo();
     seo({
@@ -38,7 +42,14 @@ function CompanyValuation() {
     });
   }, []);
 
-
+  // useEffect(() => {
+  //   fetch(`http://139.180.215.250/api/business-valuation/${company_symbol}`)
+  //     .then(result => result.json())
+  //     .then(data => {
+  //       console.log(data)
+  //     });
+  // }, [])
+  console.log(info)
   if (!company) {
     return (
       <Spinner
@@ -52,7 +63,7 @@ function CompanyValuation() {
   } else {
     return (
       <div>
-        <Header company={company}/>
+        <Header company={company} info={info}/>
         <ValuationCharts />
       </div>
     );

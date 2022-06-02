@@ -73,5 +73,12 @@ body{
 }
 
 .test{
-    border-radius: 30px;
+    font-size: 20px;
+    color: #002395
+}
+.test span{
+    margin-left: 5px;
+    font-size: 15px;
+    color: black;
+    font-weight: 200
 }
