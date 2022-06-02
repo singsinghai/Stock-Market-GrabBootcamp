@@ -15,8 +15,7 @@ function CompanyValuation() {
       .all([
         axios.get(`http://139.180.215.250/api/company/${company_symbol}`),
         axios.get(
-          `http://139.180.215.250/api/stock-price/${company_symbol}?start_date=${
-            new Date().toISOString().split("T")[0]    
+          `http://139.180.215.250/api/stock-price/${company_symbol}?start_date=${new Date().toISOString().split("T")[0]
           }`
         ),
       ])
@@ -42,6 +41,7 @@ function CompanyValuation() {
     });
   }, []);
 
+
   // useEffect(() => {
   //   fetch(`http://139.180.215.250/api/business-valuation/${company_symbol}`)
   //     .then(result => result.json())
@@ -49,7 +49,6 @@ function CompanyValuation() {
   //       console.log(data)
   //     });
   // }, [])
-  console.log(info)
   if (!company) {
     return (
       <Spinner
