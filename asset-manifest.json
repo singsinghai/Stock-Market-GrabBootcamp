@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "./static/css/main.d7beee1a.css",
+    "main.js": "./static/js/main.d9ac0c6b.js",
+    "static/media/GrabFont.ttf": "./static/media/GrabFont.faa6613947eebf8570bf.ttf",
+    "index.html": "./index.html",
+    "main.d7beee1a.css.map": "./static/css/main.d7beee1a.css.map",
+    "main.d9ac0c6b.js.map": "./static/js/main.d9ac0c6b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d7beee1a.css",
+    "static/js/main.d9ac0c6b.js"
+  ]
+}
