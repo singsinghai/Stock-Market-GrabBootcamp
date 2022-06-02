@@ -68,3 +68,6 @@ a:hover{
 .center{
     margin: auto;
 }
+body{
+    min-width: 600px;
+}

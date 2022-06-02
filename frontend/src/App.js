@@ -7,6 +7,7 @@ import CompanyValuation from './components/companyValuation';
 import ApiCaller from './api/ApiCaller';
 import { useEffect, useState } from 'react';
 import CompanyRanking from './components/companyRanking';
+import NavBar from './components/TestSideBar/Navbar'
 
 
 
@@ -35,15 +36,15 @@ function App() {
         // This is the Single-Page routing
         <BrowserRouter>
             {/* The Sidebar and Header is fixed on every page */}
-            <SidebarWithHeader>
+            <NavBar />
+            <div style ={{padding: '100px 50px', minHeight: '760px'}}>
                 <Routes>
                     <Route path="/" element={<HomePage market_data={market_data}/>} />
                     <Route path="/company-ranking" element={<CompanyRanking/>} />
                     <Route path="/xxx" element={ <div> Nothing here yet! </div> } />
                     <Route path="/company/:company_symbol" element={<CompanyValuation />} />
                 </Routes>
-
-            </SidebarWithHeader>
+            </div>
         </BrowserRouter>
 
     );
