@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import {Image, Text } from "@chakra-ui/react";
 
-export default function Header({company}) {
+
+
+export default function Header({company, info}) {
   const renderStats = (stats) => {
     return (
       <Col
@@ -10,7 +12,17 @@ export default function Header({company}) {
         className="flex justify-between w-4/12 px-4 border-start border-secondary"
       >
         {stats.map((stat, idx) => {
-          return <Row key={idx}>{stat}</Row>;
+          return <Row key={idx}>
+            <Col xs={6} className='px-0'>
+              {stat.title}:
+            </Col>
+            <Col xs={6} className='px-0 test'>
+              {stat.value}
+              <span>
+                {stat.unit}
+              </span>
+            </Col>
+          </Row>;
         })}
       </Col>
     );
@@ -37,9 +49,58 @@ export default function Header({company}) {
             <Text>{company.industry_name}</Text>
           </Row>
         </Col>
-        {renderStats(["Vốn hóa", "KLGD TB15D", "KLCP lưu hành"])}
-        {renderStats(["EPS (D)", "P/E (D)", "PEG"])}
-        {renderStats(["Book value (D)", "P/B (D)", "Tỷ lệ cổ tức"])}
+        {renderStats([
+          {
+            title: `Vốn hóa`,
+            value: info[0],
+            unit: 'tỷ'
+          }, 
+          {
+            title: "KLGD TB15D",
+            value: 0,
+            unit: 'tỷ'
+          },
+          {
+            title: `KLCP lưu hành`,
+            value: info[1],
+            unit: 'triệu'
+          }
+        ])}
+        {renderStats([
+          {
+            title:"EPS (D)",
+            value: 0,
+            unit: 'tỷ'
+
+          },
+          {
+            title: "P/E (D)",
+            value: 0,
+            unit: 'tỷ'
+          },
+          {
+            title: "PEG",
+            value: 0,
+            unit: 'tỷ'
+          }
+        ])}
+        {renderStats([
+          {
+            title: "Book value (D)", 
+            value: 0,
+            unit: 'tỷ'
+          },
+          {
+            title:"P/B (D)",
+            value: 0,
+            unit: 'tỷ'
+          },
+          {
+            title:"Tỷ lệ cổ tức",
+            value: 0,
+            unit: 'tỷ'
+          }
+        ])}
       </Row>
       <Row></Row>
     </Container>

@@ -5,7 +5,6 @@ import {
   FormControl,
   InputGroup,
   ListGroup,
-  Stack,
 } from "react-bootstrap";
 export default function SearchBar() {
   const [state, setState] = useState({
@@ -47,8 +46,8 @@ export default function SearchBar() {
             action
             href={`/company/${company.symbol}`}
           >
-            <span className="fw-bold col-3">{company.symbol}</span>
-            <span className="col-9">{company.company_name}</span>
+            <span className="fw-bold col-3 mx-0">{company.symbol}</span>
+            <span className="col-9 mx-0">{company.company_name}</span>
           </ListGroup.Item>
         );
       });
@@ -62,21 +61,22 @@ export default function SearchBar() {
   return (
     // Scale the width to 30% so it won't cover the size of whole header
     <div
-      style={{ zIndex: 2, marginTop: "1.25rem", margin: 'auto' }}
+      style={{ zIndex: 2, marginTop: "1.25rem", margin: "auto auto auto 50px" }}
       className=""
     >
-      <InputGroup style={{ width: "500px", alignItems: "center" }}>
+      <InputGroup style={{ width: "400px", alignItems: "center" }}>
         <FormControl
           type="text"
           placeholder="Tìm kiếm công ty ..."
           value={state.query}
           onChange={onQueryChange}
+          style={{ borderRadius: 30, height: 40}}
         />
       </InputGroup>
       {state.query === "" ? (
         <></>
       ) : (
-        <ListGroup className="col-md-7 ml-auto">
+        <ListGroup className="ml-auto" style={{ width: "500px", position:'fixed', marginLeft: '-200px'}}>
           {renderFilteredCompanies(state.query)}
         </ListGroup>
       )}

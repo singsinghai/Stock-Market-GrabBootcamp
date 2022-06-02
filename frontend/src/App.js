@@ -1,6 +1,4 @@
 import './App.css';
-import SidebarWithHeader from './components/SideBar';
-//import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { HomePage } from './components/homepage';
 import CompanyValuation from './components/companyValuation';
@@ -30,13 +28,11 @@ function App() {
     }
     GetMarketData()
 
-
-
     return (
         // This is the Single-Page routing
         <BrowserRouter>
             {/* The Sidebar and Header is fixed on every page */}
-            <NavBar />
+            <NavBar/>
             <div style ={{padding: '100px 50px', minHeight: '760px'}}>
                 <Routes>
                     <Route path="/" element={<HomePage market_data={market_data}/>} />

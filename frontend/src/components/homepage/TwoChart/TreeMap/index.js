@@ -49,7 +49,7 @@ const createChartOptions = (points) => ({
                         }
                     }
                 },
-                borderWidth: 2,
+                borderWidth: 3,
             },
             {
                 level: 2,
@@ -69,12 +69,13 @@ const createChartOptions = (points) => ({
                         }
                     }
                 },
-
                 borderWidth: 1,
-
             }
             ],
-            data: points
+            data: points,
+            borderRadius: '1%',
+            borderWidth: 10,
+            name: 'Thị trường'
         }
     ],
     tooltip: {
@@ -85,7 +86,6 @@ const createChartOptions = (points) => ({
     exporting: false,
     credits: false,
     chart: {
-        height: 300,
 		backgroundColor: '#f5f5f5',
     }
 });
