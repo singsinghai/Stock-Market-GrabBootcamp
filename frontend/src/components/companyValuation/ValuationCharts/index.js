@@ -1,21 +1,13 @@
 import IndustryBoxPlot from "./IndustryBoxPLot";
-import ColumnChart from "./ColumnChart";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import BulletChart from "./BulletChart";
+import ProfitCharts from "./ProfitCharts";
 
 function ValuationCharts({company_symbol}) {
     return (
         <div>
-            <Row>
-                <Col xs={12} xl={6} className='p-0'>
-                    <div> <ColumnChart company_symbol={company_symbol}/> </div>
-                </Col>
-
-                <Col xs={12} xl={6} className='p-0'>
-                    <div>Chart 2</div>
-                </Col>
-            </Row>
+            <ProfitCharts company_symbol={company_symbol}/>
             <Row>
                 <Col xs={12} xl={6} className='p-0'>
                     <div>Chart 3</div>

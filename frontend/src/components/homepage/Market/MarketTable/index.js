@@ -59,7 +59,6 @@ function MarketTable ({ data, current_market, setMarket }) {
     let groupedByMarket = groupBy(data, 'market_symbol')
 
     const markets = Object.keys(groupedByMarket)
-    console.log(groupedByMarket)
     markets.forEach(key => {
         let by_market = groupedByMarket[key]
 
