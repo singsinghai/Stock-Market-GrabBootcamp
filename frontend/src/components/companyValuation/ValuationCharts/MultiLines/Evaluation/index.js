@@ -61,7 +61,7 @@ function Evaluation({ company_symbol, businessValue}) {
                 labels: {
                     formatter: function(){
                         console.log(this)
-                        return this.axis.categories[Math.round((this.pos - 2010)/2)]   
+                        return this.axis.categories[Math.round((this.pos - 2010))]   
                     }
                 },
             },
@@ -80,7 +80,6 @@ function Evaluation({ company_symbol, businessValue}) {
                     pointStart: 2010
                 }
             },
-
             series: [{
                 yAxis: 0,
                 name: 'P/B',
@@ -93,7 +92,7 @@ function Evaluation({ company_symbol, businessValue}) {
                 type: "spline"
             }, {
                 yAxis: 0,
-                name: 'Biên lãi EBITDA',
+                name: 'EV/EBITDA',
                 data: data.map((item) => item.ev_over_ebitda),
                 type: "spline"
             }, {
