@@ -34,5 +34,11 @@ urlpatterns = [
     })),
     path(r'financial-ratio/<slug:company>', FinancialRatioViewSet.as_view({
         'get': 'get_stock_financial_ratio'
+    })),
+    path('business-valuation', FinancialRatioViewSet.as_view({
+        'get': 'list'
+    })),
+    path(r'business-valuation/<slug:company>', FinancialRatioViewSet.as_view({
+        'get': 'get_stock_financial_ratio'
     }))
 ]

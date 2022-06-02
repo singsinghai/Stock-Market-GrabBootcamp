@@ -5,8 +5,8 @@ from django.db import connection
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
-from ..models import StockPrice, Company, MarketPrice, FinancialStatement, FinancialRatio
-from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer, FinancialStatementSerializer, FinancialRatioSerializer
+from ..models import StockPrice, Company, MarketPrice, FinancialStatement, FinancialRatio, BusinessValuation
+from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer, FinancialStatementSerializer, FinancialRatioSerializer, BusinessValuationSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from datetime import datetime
@@ -117,6 +117,28 @@ class FinancialRatioViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(history, many=True)
         return Response(serializer.data)
 
+class BusinessValuationViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = BusinessValuation.objects.all()
+    serializer_class = BusinessValuationSerializer
+    renderer_classes = [JSONRenderer]
+
+    def list(self, request, *args, **kwargs):
+        sql = """
+        SELECT * 
+        FROM hercules.stock_api_businessvaluation;
+        """
+        queryset = FinancialRatio.objects.raw(sql)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def get_stock_financial_ratio(self, request, company=None):
+        sql = """
+        SELECT * FROM stock_api_businessvaluation WHERE company_id = %s
+        """
+        history = FinancialRatio.objects.raw(sql, [company])
+
+        serializer = self.get_serializer(history, many=True)
+        return Response(serializer.data)
 
 class StockPriceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StockPrice.objects.all()
