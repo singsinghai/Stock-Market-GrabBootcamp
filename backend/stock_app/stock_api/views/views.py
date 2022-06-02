@@ -125,7 +125,9 @@ class BusinessValuationViewSet(viewsets.ReadOnlyModelViewSet):
     def list(self, request, *args, **kwargs):
         sql = """
         SELECT * 
-        FROM hercules.stock_api_businessvaluation;
+        FROM hercules.stock_api_businessvaluation
+        WHERE year = 2022 and quarter = 1
+        ORDER BY company_id ASC;
         """
         queryset = FinancialRatio.objects.raw(sql)
         serializer = self.get_serializer(queryset, many=True)
