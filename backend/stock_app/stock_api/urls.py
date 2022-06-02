@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import CompanyViewSet, MarketPriceViewSet, StockPriceViewSet, FinancialStatementViewSet
+from .views import CompanyViewSet, MarketPriceViewSet, StockPriceViewSet, FinancialStatementViewSet, FinancialRatioViewSet
 
 urlpatterns = [
     path('company', CompanyViewSet.as_view({
@@ -23,7 +23,16 @@ urlpatterns = [
     path(r'stock-price/all/<slug:trading_date>', StockPriceViewSet.as_view({
         'get': 'get_stock_price_history_group_by_industry'
     })),
+    path('financial-statements', FinancialStatementViewSet.as_view({
+        'get': 'list'
+    })),
     path(r'financial-statements/<slug:company>', FinancialStatementViewSet.as_view({
         'get': 'get_stock_financial_statement'
     })),
+    path('financial-ratio', FinancialRatioViewSet.as_view({
+        'get': 'list'
+    })),
+    path(r'financial-ratio/<slug:company>', FinancialRatioViewSet.as_view({
+        'get': 'get_stock_financial_ratio'
+    }))
 ]

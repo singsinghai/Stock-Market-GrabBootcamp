@@ -5,8 +5,8 @@ from django.db import connection
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
-from ..models import StockPrice, Company, MarketPrice, FinancialStatement
-from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer, FinancialStatementSerializer
+from ..models import StockPrice, Company, MarketPrice, FinancialStatement, FinancialRatio
+from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer, FinancialStatementSerializer, FinancialRatioSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from datetime import datetime
@@ -30,13 +30,59 @@ class FinancialStatementViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = FinancialStatement.objects.all()
     serializer_class = FinancialStatementSerializer
     renderer_classes = [JSONRenderer]
-    
+
     def get_stock_financial_statement(self, request, company=None):
         sql = """
         SELECT * FROM stock_api_financialstatement WHERE company_id = %s
         """
-        history = StockPrice.objects.raw(sql, [company])
-        
+        history = FinancialStatement.objects.raw(sql, [company])
+
+        serializer = self.get_serializer(history, many=True)
+        return Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+        sql = """
+        SELECT * 
+        FROM hercules.stock_api_financialstatement AS a
+        WHERE (
+            SELECT count(*) 
+            FROM hercules.stock_api_financialratio as b
+            WHERE b.company_id = a.company_id 
+                AND (b.year > a.year OR (b.year = a.year AND b.quarter > a.quarter))
+        ) <= 3
+        ORDER BY a.company_id, a.year DESC, a.quarter DESC;
+        """
+        queryset = FinancialRatio.objects.raw(sql)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+class FinancialRatioViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = FinancialRatio.objects.all()
+    serializer_class = FinancialRatioSerializer
+    renderer_classes = [JSONRenderer]
+
+    def list(self, request, *args, **kwargs):
+        sql = """
+        SELECT * 
+        FROM hercules.stock_api_financialratio AS a
+        WHERE (
+            SELECT count(*) 
+            FROM hercules.stock_api_financialratio as b
+            WHERE b.company_id = a.company_id 
+                AND (b.year > a.year OR (b.year = a.year AND b.quarter > a.quarter))
+        ) <= 3
+        ORDER BY a.company_id, a.year DESC, a.quarter DESC;
+        """
+        queryset = FinancialRatio.objects.raw(sql)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def get_stock_financial_ratio(self, request, company=None):
+        sql = """
+        SELECT * FROM stock_api_financialratio WHERE company_id = %s
+        """
+        history = FinancialRatio.objects.raw(sql, [company])
+
         serializer = self.get_serializer(history, many=True)
         return Response(serializer.data)
 
@@ -45,7 +91,7 @@ class StockPriceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StockPrice.objects.all()
     serializer_class = StockPriceSerializer
     renderer_classes = [JSONRenderer]
-    
+
     def get_top_total_foreign(self, request):
         sql = """
         SELECT buy_foreign_value - sell_foreign_value as total_foreign_value, company_id

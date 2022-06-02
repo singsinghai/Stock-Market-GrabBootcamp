@@ -78,19 +78,13 @@ class FinancialRatio(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     year = models.IntegerField()
     quarter = models.IntegerField()
-    return_on_sales = models.FloatField()
     return_on_equity = models.FloatField()
     return_on_assets = models.FloatField()
-    return_on_investments = models.FloatField()
     return_on_invested_capitals = models.FloatField()
     current_ratio = models.FloatField()
-    quick_ratio = models.FloatField()
-    cash_ratio = models.FloatField()
-    interest_coverage_ratio = models.FloatField()
-    inventory_turnover_ratio = models.FloatField()
-    receivable_turnover_ratio = models.FloatField()
-    debt_equity_ratio = models.FloatField()
-    equity_multiplier_ratio = models.FloatField()
+    gross_margin = models.FloatField()
+    profit_margin =  models.FloatField()
+    pretax_profit_margin = models.FloatField()
 
 # Dinh gia cong ty
 
