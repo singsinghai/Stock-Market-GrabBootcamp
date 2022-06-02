@@ -8,6 +8,24 @@ require("highcharts/modules/draggable-points")(Highcharts);
 function Evaluation({ company_symbol, businessValue}) {
     let options = null;
     const valuation_data = businessValue
+    function compare( a, b ) {
+        if ( a.year < b.year ){
+          return -1;
+        }
+        if ( a.year > b.year ){
+          return 1;
+        }
+        else{
+            if ( a.quarter < b.quarter ){
+                return -1;
+            }
+            if ( a.quarter > b.quarter ){
+                return 1;
+            }
+        }
+        return 0;
+      }
+    valuation_data.sort(compare)
     if (valuation_data) {
         const data = valuation_data.filter((item) => {
             return item.year >= 2022 - 4;
@@ -31,19 +49,21 @@ function Evaluation({ company_symbol, businessValue}) {
                 borderRadius: 15
             },
 
-            subtitle: {
-                text: 'Source: thesolarfoundation.com'
-            },
-
-            yAxis: {
+            yAxis: [{
                 labels: {
                     format: '{text}%'
                 },
-            },
+            }],
 
             xAxis: {
                 categories: data.map((item) => "Q" + item.quarter + "/" + item.year % 2000),
                 tickInterval: 2,
+                labels: {
+                    formatter: function(){
+                        console.log(this)
+                        return this.axis.categories[Math.round((this.pos - 2010)/2)]   
+                    }
+                },
             },
 
             legend: {
@@ -62,20 +82,24 @@ function Evaluation({ company_symbol, businessValue}) {
             },
 
             series: [{
+                yAxis: 0,
                 name: 'P/B',
-                data: valuation_data.map((item) => item.price_to_book),
+                data: data.map((item) => item.price_to_book),
                 type: "spline"
             }, {
+                yAxis: 0,
                 name: 'P/E',
-                data: valuation_data.map((item) => item.price_earnings),
+                data: data.map((item) => item.price_earnings),
                 type: "spline"
             }, {
+                yAxis: 0,
                 name: 'Biên lãi EBITDA',
-                data: valuation_data.map((item) => item.ev_over_ebitda),
+                data: data.map((item) => item.ev_over_ebitda),
                 type: "spline"
             }, {
+                yAxis: 0,
                 name: 'EV/EBIT',
-                data: valuation_data.map((item) => item.ev_over_ebit),
+                data: data.map((item) => item.ev_over_ebit),
                 type: "spline"
             }],
 
