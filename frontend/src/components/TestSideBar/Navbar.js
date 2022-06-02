@@ -9,10 +9,12 @@ import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import SearchBar from './SearchBar';
+import { act } from 'react-dom/test-utils';
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
-
+  const [pageActive, setPageActive] = useState(0)
+  const changePageActive = (e) => setPageActive(e)
   const showSidebar = () => setSidebar(!sidebar);
 
   return (
@@ -32,15 +34,21 @@ function Navbar() {
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>
             <li className='navbar-toggle'>
-            <div className='logo'>
-              <Text fontSize="42" fontFamily="GrabFont" color='#f5f5f5'>
-                  HERCULÉ
-              </Text>
+            <div className='logo' >
+              <Link to='/' onClick={() => changePageActive(0)}>
+                <Text fontSize="42" fontFamily="GrabFont" color='#f5f5f5'>
+                    HERCULÉ
+                </Text>
+              </Link>
             </div>
             </li>
             {SidebarData.map((item, index) => {
+              let activeClass = ''
+              if (index === pageActive){
+                activeClass = ' live'
+              }
               return (
-                <li key={index} className={item.cName}>
+                <li key={index} className={item.cName + activeClass} value={index} onClick={() => changePageActive(index)}>
                   <Link to={item.path}>
                     <Icon
                         mr="4"

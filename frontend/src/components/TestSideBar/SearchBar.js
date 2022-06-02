@@ -1,4 +1,5 @@
 // THIS FILE DESIGN THE SEARCH BAR FOR THE HEADER
+import { position } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -47,8 +48,8 @@ export default function SearchBar() {
             action
             href={`/company/${company.symbol}`}
           >
-            <span className="fw-bold col-3">{company.symbol}</span>
-            <span className="col-9">{company.company_name}</span>
+            <span className="fw-bold col-3 mx-0">{company.symbol}</span>
+            <span className="col-9 mx-0">{company.company_name}</span>
           </ListGroup.Item>
         );
       });
@@ -76,7 +77,7 @@ export default function SearchBar() {
       {state.query === "" ? (
         <></>
       ) : (
-        <ListGroup className="col-md-7 ml-auto">
+        <ListGroup className="ml-auto" style={{ width: "500px", position:'fixed', marginLeft: '-200px'}}>
           {renderFilteredCompanies(state.query)}
         </ListGroup>
       )}

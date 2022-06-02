@@ -28,7 +28,6 @@ function App() {
     GetMarketData()
 
 
-
     return (
         // This is the Single-Page routing
         <BrowserRouter>

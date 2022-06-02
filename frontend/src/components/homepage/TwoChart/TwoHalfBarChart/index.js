@@ -8,7 +8,7 @@ const createBarChart = (res) => {
   // take symbol having lowest total_foreign_value
   // take 10 symbol having highest total_foreign_value
   // take 10 symbol having lowest total_foreign_value
-  if (res === null) return
+  if (res === null || res.length === 0) return
   const max_value_green = res[0].total_foreign_value;
   const max_value_red = res[res.length - 1].total_foreign_value;
   const data_red = res.slice(-10).reverse().map(item => ({
@@ -20,8 +20,8 @@ const createBarChart = (res) => {
     value: item.total_foreign_value * 100 / max_value_green
   }));
   // format data to show chart
-  const list_green = data_green.map((item) =>
-    <div className="d-flex flex-row-reverse ">
+  const list_green = data_green.map((item, index) =>
+    <div key={index} className="d-flex flex-row-reverse ">
       <div className="col-3 text-end">
         <Link to={`/company/${item.symbol}`}>
           {item.symbol}
@@ -33,8 +33,8 @@ const createBarChart = (res) => {
       </div>
     </div>
   )
-  const list_red = data_red.map((item) =>
-    <div className="d-flex">
+  const list_red = data_red.map((item, index) =>
+    <div key={index} className="d-flex">
       <div className="col-3">
         <Link to={`/company/${item.symbol}`}>
           {item.symbol}
