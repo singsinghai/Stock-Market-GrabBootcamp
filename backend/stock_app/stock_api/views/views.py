@@ -131,7 +131,7 @@ class BusinessValuationViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    def get_stock_financial_ratio(self, request, company=None):
+    def get_stock_business_valuation(self, request, company=None):
         sql = """
         SELECT * FROM stock_api_businessvaluation WHERE company_id = %s
         """
