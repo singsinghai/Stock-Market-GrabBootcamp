@@ -16,15 +16,16 @@ function Navbar() {
   const [pageActive, setPageActive] = useState(0)
   const changePageActive = (e) => setPageActive(e)
   const showSidebar = () => setSidebar(!sidebar);
-
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
         <div className='navbar'>
           <div className='logo'>
-            <Text fontSize="42" fontFamily="GrabFont" color='#f5f5f5'>
-                HERCULÉ
-            </Text>
+            <Link to='/' onClick={() => changePageActive(0)}>
+              <Text fontSize="42" fontFamily="GrabFont" color='#f5f5f5'>
+                  HERCULÉ
+              </Text>
+            </Link>
           </div>
           <SearchBar/> 
           <Link to='#' className='menu-bars'>
