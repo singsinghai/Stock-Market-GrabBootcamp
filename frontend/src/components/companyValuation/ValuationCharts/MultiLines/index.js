@@ -3,7 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import Evaluation from "./Evaluation";
 import ProfitMargin from "./ProfitMargin";
 
-function MultiLines({ company_symbol }) {
+function MultiLines({ company_symbol, businessValue}) {
 
 
     return (
@@ -13,7 +13,7 @@ function MultiLines({ company_symbol }) {
             </Col>
 
             <Col xs={12} xl={6} className='p-0'>
-                <Evaluation company_symbol={company_symbol} />
+                <Evaluation company_symbol={company_symbol} businessValue={businessValue} />
             </Col>
         </Row >
     )

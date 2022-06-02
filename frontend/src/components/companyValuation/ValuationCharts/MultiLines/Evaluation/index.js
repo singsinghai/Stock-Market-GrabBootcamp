@@ -5,34 +5,19 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 require("highcharts/modules/draggable-points")(Highcharts);
 
-function Evaluation({ company_symbol }) {
-    const [valuation_data, setData] = useState(null);
-
-    const ValuationData = () => {
-        const url = `http://139.180.215.250/api/business-valuation/${company_symbol}?format=json`;
-        async function fetchData() {
-            const res = await ApiCaller(url);
-            setData(res)
-        }
-
-        useEffect(() => {
-            fetchData();
-        }, []);
-    }
-    ValuationData();
-
+function Evaluation({ company_symbol, businessValue}) {
     let options = null;
-
+    const valuation_data = businessValue
     if (valuation_data) {
         const data = valuation_data.filter((item) => {
             return item.year >= 2022 - 4;
         })
-        console.log(data)
+        console.log('a',data)
 
         options = {
             
             title: {
-                text: 'Biên lãi - Quý',
+                text: 'Định giá - TTM',
                 style: {
                     fontFamily: "Segoe UI",
                     fontSize: 14,
@@ -77,20 +62,20 @@ function Evaluation({ company_symbol }) {
             },
 
             series: [{
-                name: 'Biên lãi gộp',
-                data: data.map((item) => item.gross_margin * 100),
+                name: 'P/B',
+                data: valuation_data.map((item) => item.price_to_book),
                 type: "spline"
             }, {
-                name: 'Biên lãi thuần',
-                data: data.map((item) => item.profit_margin * 100),
+                name: 'P/E',
+                data: valuation_data.map((item) => item.price_earnings),
                 type: "spline"
             }, {
-                name: 'Biên lãi trước thuế',
-                data: data.map((item) => item.pretax_profit_margin * 100),
+                name: 'Biên lãi EBITDA',
+                data: valuation_data.map((item) => item.ev_over_ebitda),
                 type: "spline"
             }, {
-                name: 'Biên lãi trước thuế',
-                data: data.map((item) => item.pretax_profit_margin * 100),
+                name: 'EV/EBIT',
+                data: valuation_data.map((item) => item.ev_over_ebit),
                 type: "spline"
             }],
 

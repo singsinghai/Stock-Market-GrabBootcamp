@@ -4,15 +4,15 @@ import {Image, Text } from "@chakra-ui/react";
 
 
 
-export default function Header({company, info}) {
+export default function Header({company, info, businessInfo}) {
   const renderStats = (stats) => {
     return (
-      <Col
-        xs={4}
-        className="flex justify-between w-4/12 px-4 border-start border-secondary"
-      >
+      <>
         {stats.map((stat, idx) => {
-          return <Row key={idx}>
+          return <Col
+          xs={8} md={6} lg={4}
+          className="flex justify-between w-4/12 px-4 border-start border-secondary"
+        ><Row key={idx}>
             <Col xs={7} className='px-0'>
               {stat.title}:
             </Col>
@@ -22,9 +22,9 @@ export default function Header({company, info}) {
                 {stat.unit}
               </span>
             </Col>
-          </Row>;
+          </Row></Col>;
         })}
-      </Col>
+      </>
     );
   };
   return (
@@ -63,43 +63,39 @@ export default function Header({company, info}) {
             }, 
             {
               title: "KLGD TB15D",
-              value: 0,
-              unit: 'tỷ'
+              value: info[2],
+              unit: 'ngàn cổ'
             },
             {
               title: `KLCP lưu hành`,
               value: info[1],
               unit: 'triệu'
-            }
-          ])}
-          {renderStats([
+            },
             {
               title:"EPS (D)",
-              value: 0,
-              unit: 'tỷ'
+              value: Math.round(businessInfo.earnings_per_share),
+              unit: 'đồng'
 
             },
             {
               title: "P/E (D)",
-              value: 0,
-              unit: 'tỷ'
+              value: Math.round(businessInfo.price_earnings*10)/10,
+              unit: 'lần'
             },
             {
               title: "PEG",
               value: 0,
               unit: 'tỷ'
-            }
-          ])}
-          {renderStats([
+            },
             {
               title: "Book value (D)", 
-              value: 0,
-              unit: 'tỷ'
+              value: Math.round(businessInfo.book_value),
+              unit: 'đồng'
             },
             {
               title:"P/B (D)",
-              value: 0,
-              unit: 'tỷ'
+              value: Math.round(businessInfo.price_to_book*10)/10,
+              unit: 'lần'
             },
             {
               title:"Tỷ lệ cổ tức",
