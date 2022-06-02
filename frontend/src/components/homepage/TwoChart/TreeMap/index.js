@@ -95,10 +95,11 @@ function TreeMap() {
     const chartComponent = useRef(null);
     let url = 'http://139.180.215.250/api/stock-price/all/';
     let d = new Date()
-    // 60 * 60 * 1000 mean 1 hour 
-    // if you are in 3:00 AM you don't have any data from today because the first trade from 6:00 AM
-    //  so I decrease 6 hours 
-    d.setTime(d.getTime() - 60 * 60 * 1000 * 6) 
+    // 60 * 60 * 1000 means 1 hour 
+    // if you are in 0:00 to 9:15 AM you don't have any data from today because the first trade from 9:15 AM
+    // there is a delay in data update too
+    // so I decrease 10 hours 
+    d.setTime(d.getTime() - 60 * 60 * 1000 * 10) 
     url += d.getFullYear() +'-'+months[d.getMonth()]+'-'+d.getDate()
     const [points, setPoints] = useState([]);
     const chartOptions = useMemo(() => createChartOptions(points), [points]);
