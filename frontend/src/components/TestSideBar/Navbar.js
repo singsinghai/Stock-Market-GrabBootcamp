@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Icon
+  Icon, Text
 } from '@chakra-ui/react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
@@ -19,17 +19,24 @@ function Navbar() {
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
         <div className='navbar'>
+          <div className='logo'>
+            <Text fontSize="42" fontFamily="GrabFont" color='#f5f5f5'>
+                HERCULÉ
+            </Text>
+          </div>
+          <SearchBar/> 
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-          <SearchBar/> 
+          </Link> 
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>
             <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineClose />
-              </Link>
+            <div className='logo'>
+              <Text fontSize="42" fontFamily="GrabFont" color='#f5f5f5'>
+                  HERCULÉ
+              </Text>
+            </div>
             </li>
             {SidebarData.map((item, index) => {
               return (
@@ -43,7 +50,7 @@ function Navbar() {
                         }}
                         as={item.icon}
                     />
-                    <span>{item.title}</span>
+                    {item.title}
                   </Link>
                 </li>
               );
