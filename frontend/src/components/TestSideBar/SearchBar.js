@@ -65,7 +65,7 @@ export default function SearchBar() {
       style={{ zIndex: 2, marginTop: "1.25rem", margin: 'auto' }}
       className=""
     >
-      <InputGroup style={{ width: "300px", alignItems: "center" }}>
+      <InputGroup style={{ width: "500px", alignItems: "center" }}>
         <FormControl
           type="text"
           placeholder="Tìm kiếm công ty ..."
