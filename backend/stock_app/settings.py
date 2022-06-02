@@ -92,9 +92,9 @@ DATABASES = {
 }
 
 CRONJOBS = [
-    ('*/5 * * * *', 'stock_app.stock_api.cron.update_stock_price',
+    ('*/5 * * * 1-5', 'stock_app.stock_api.cron.update_stock_price',
      '>> /tmp/stock_price_update.log 2>&1'),
-    ('*/5 * * * *', 'stock_app.stock_api.cron.update_market_price',
+    ('*/5 * * * 1-5', 'stock_app.stock_api.cron.update_market_price',
      '>> /tmp/market_price_update.log 2>&1')
 ]
 
@@ -118,8 +118,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer'
+    ]
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

@@ -59,9 +59,9 @@ def populate_stockprice(start_date, upsert=False, verbose=False):
                 trade["priceOpen"],
                 trade["priceClose"],
                 trade["totalVolume"],
+                trade["totalValue"],
                 trade["buyForeignValue"],
-                trade["sellForeignValue"],
-                trade["totalValue"]
+                trade["sellForeignValue"]
             ])
 
         temp_sql = sql + ', '.join(['(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)']
