@@ -12,12 +12,12 @@ require('highcharts/modules/annotations')(Highcharts);
 
 function MarketPriceChart ({ data, current_market }) {
 
-    // Draw the chart if data is not null
-
     let by_market = data.filter((item) => {
         return item.market_symbol === current_market
     })
 
+    // trading_date được sếp từ ngày gần nhất, để tiện cho visualize,
+    // ta phải sort nó theo chiều ngược lại
     by_market = by_market.map(item => ({
         ...item,
         trading_date: new Date(item.trading_date).getTime()
@@ -25,6 +25,7 @@ function MarketPriceChart ({ data, current_market }) {
 
     by_market.sort((a, b) => a.trading_date - b.trading_date);
 
+    // Map các cột dữ liệu json thành ma trận 
     let trading_date = by_market.map(item => item.trading_date)
     let price_close = by_market.map(item => item.price_close)
 
@@ -56,7 +57,7 @@ function MarketPriceChart ({ data, current_market }) {
             selected: 1
         },
 
-        //Making gradient color looking for the area plot
+        // Making gradient color looking for the area plot
         plotOptions: {
             area: {
                 fillColor: {
