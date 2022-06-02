@@ -30,7 +30,6 @@ function Evaluation({ company_symbol, businessValue}) {
         const data = valuation_data.filter((item) => {
             return item.year >= 2022 - 4;
         })
-        console.log('a',data)
 
         options = {
             
@@ -60,7 +59,6 @@ function Evaluation({ company_symbol, businessValue}) {
                 tickInterval: 2,
                 labels: {
                     formatter: function(){
-                        console.log(this)
                         return this.axis.categories[Math.round((this.pos - 2010))]   
                     }
                 },

@@ -27,7 +27,6 @@ function ProfitMargin({ company_symbol }) {
         const data = ratio_data.filter((item) => {
             return item.year >= 2022 - 4;
         })
-        console.log(data)
 
         options = {
             
