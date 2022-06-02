@@ -15,8 +15,7 @@ function CompanyValuation() {
       .all([
         axios.get(`http://139.180.215.250/api/company/${company_symbol}`),
         axios.get(
-          `http://139.180.215.250/api/stock-price/${company_symbol}?start_date=${
-            new Date().toISOString().split("T")[0]    
+          `http://139.180.215.250/api/stock-price/${company_symbol}?start_date=${new Date().toISOString().split("T")[0]
           }`
         ),
       ])
@@ -38,7 +37,6 @@ function CompanyValuation() {
     });
   }, []);
 
-
   if (!company) {
     return (
       <Spinner
@@ -52,8 +50,8 @@ function CompanyValuation() {
   } else {
     return (
       <div>
-        <Header company={company}/>
-        <ValuationCharts />
+        <Header company={company} />
+        <ValuationCharts company_symbol={company_symbol} />
       </div>
     );
   }

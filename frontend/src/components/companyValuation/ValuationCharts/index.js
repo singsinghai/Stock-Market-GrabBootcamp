@@ -4,25 +4,25 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import BulletChart from "./BulletChart";
 
-function ValuationCharts() {
+function ValuationCharts({company_symbol}) {
     return (
         <div>
             <Row>
                 <Col xs={12} xl={6} className='p-0'>
-                    <div> <ColumnChart /> </div>
+                    <div> <ColumnChart company_symbol={company_symbol}/> </div>
                 </Col>
 
                 <Col xs={12} xl={6} className='p-0'>
-                    <div><ColumnChart /></div>
+                    <div>Chart 2</div>
                 </Col>
             </Row>
             <Row>
                 <Col xs={12} xl={6} className='p-0'>
-                    <div><ColumnChart /></div>
+                    <div>Chart 3</div>
                 </Col>
 
                 <Col xs={12} xl={6} className='p-0'>
-                    <div><ColumnChart /></div>
+                    <div>Chart 4</div>
                 </Col>
             </Row>
 
