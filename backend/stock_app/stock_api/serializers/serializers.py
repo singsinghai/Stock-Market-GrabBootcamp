@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Company, MarketPrice, StockPrice, FinancialRatio, FinancialStatement, BusinessValuation
+from ..models import Company, MarketPrice, StockPrice, FinancialRatio, FinancialStatement, BusinessValuation, StockValuation
 
 
 class CompanySerializer(serializers.ModelSerializer):
