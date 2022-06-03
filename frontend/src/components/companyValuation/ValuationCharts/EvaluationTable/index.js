@@ -3,8 +3,8 @@ import { ReactTabulator } from 'react-tabulator';
 
 function EvaluationTable() {
     const columns = [
-        { title: "Chỉ số định giá", field: "evaluator" },
-        { title: "Giá trị 1 cổ phiếu", field: "price" }
+        { title: "Chỉ số định giá", field: "evaluator", width: 350 },
+        { title: "Giá trị 1 cổ phiếu", field: "price", width: 300 }
     ]
 
     const data = [
@@ -20,7 +20,6 @@ function EvaluationTable() {
             data={data}
             columns={columns}
             layout="fitData"
-            height="350px"
         />
     );
 }

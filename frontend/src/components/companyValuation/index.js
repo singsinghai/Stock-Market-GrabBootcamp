@@ -54,14 +54,14 @@ function CompanyValuation() {
   }, []);
 
 
-  // useEffect(() => {
-  //   fetch(`http://139.180.215.250/api/business-valuation/${company_symbol}`)
-  //     .then(result => result.json())
-  //     .then(data => {
-  //       setBusinessInfo(data[data.length-1])
-  //       setBusinessValue(data)
-  //     });
-  // }, [])
+  useEffect(() => {
+    fetch(`http://139.180.215.250/api/business-valuation/${company_symbol}`)
+      .then(result => result.json())
+      .then(data => {
+        setBusinessInfo(data[data.length-1])
+        setBusinessValue(data)
+      });
+  }, [])
   if (!company) {
     return (
       <Spinner
@@ -75,7 +75,6 @@ function CompanyValuation() {
   } else {
     return (
       <div>
-
         <Header company={company} info={info} businessInfo={businessInfo}/>
         {businessValue ? <ValuationCharts company_symbol={company_symbol} businessValue={businessValue}/> : <Loading />}
       </div>
