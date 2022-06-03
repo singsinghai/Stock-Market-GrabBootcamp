@@ -76,7 +76,7 @@ export default function SearchBar() {
       {state.query === "" ? (
         <></>
       ) : (
-        <ListGroup className="ml-auto" style={{ width: "500px", position:'fixed', marginLeft: '-200px'}}>
+        <ListGroup className="ml-auto" style={{ width: "500px", position:'fixed', }}>
           {renderFilteredCompanies(state.query)}
         </ListGroup>
       )}
