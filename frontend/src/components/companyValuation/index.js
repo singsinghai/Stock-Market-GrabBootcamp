@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { seo } from "../../helper";
+import { Loading } from "../Loading";
 import Header from "./Header";
 import ValuationCharts from "./ValuationCharts";
 
@@ -75,7 +76,7 @@ function CompanyValuation() {
     return (
       <div>
         <Header company={company} info={info} businessInfo={businessInfo}/>
-        <ValuationCharts company_symbol={company_symbol} businessValue={businessValue}/>
+        {businessValue ? <ValuationCharts company_symbol={company_symbol} businessValue={businessValue}/> : <Loading />}
       </div>
     );
   }

@@ -4,6 +4,8 @@ import { Col, Row } from "react-bootstrap";
 import BulletChart from "./BulletChart";
 import ProfitCharts from "./ProfitCharts";
 import MultiLines from "./MultiLines";
+import EvaluationTable from "./EvaluationTable";
+
 
 function ValuationCharts({company_symbol, businessValue}) {
     return (
@@ -12,12 +14,12 @@ function ValuationCharts({company_symbol, businessValue}) {
             <MultiLines company_symbol={company_symbol} businessValue={businessValue}/>
 
             <Row>
-                <div><BulletChart /></div> {/*Bullet chart ở đây*/}
+                <div><BulletChart company_symbol={company_symbol}/></div> {/*Bullet chart ở đây*/}
                 <Col xs={12} xl={6}>
-                    <div><IndustryBoxPlot /></div>
+                    <div><IndustryBoxPlot company_symbol={company_symbol}/></div>
                 </Col> 
                 <Col xs={12} xl={6}>
-                    <div>Bảng định giá</div>
+                    <EvaluationTable />
                 </Col>
             </Row>
         </div>
