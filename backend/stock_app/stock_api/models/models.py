@@ -93,6 +93,7 @@ class BusinessValuation(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     year = models.IntegerField()
     quarter = models.IntegerField()
+    price_close = models.IntegerField()
     book_value = models.FloatField()
     earnings_per_share = models.FloatField()
     enterprise_value = models.FloatField()
@@ -103,3 +104,57 @@ class BusinessValuation(models.Model):
     price_earnings = models.FloatField()
     price_to_sales = models.FloatField()
     market_cap = models.BigIntegerField()
+    
+    
+class StockValuation(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    
+    book_value_max = models.FloatField()
+    book_value_min = models.FloatField()
+    book_value_avg = models.FloatField()
+    book_value_upsize = models.FloatField()
+    
+    earnings_per_share_max = models.FloatField()
+    earnings_per_share_min = models.FloatField()
+    earnings_per_share_avg = models.FloatField()
+    earnings_per_share_upsize = models.FloatField()
+    
+    enterprise_value_max = models.FloatField()
+    enterprise_value_min = models.FloatField()
+    enterprise_value_avg = models.FloatField()
+    enterprise_value_upsize = models.FloatField()
+    
+    ev_over_ebit_max = models.FloatField()
+    ev_over_ebit_min = models.FloatField()
+    ev_over_ebit_avg = models.FloatField()
+    ev_over_ebit_upsize = models.FloatField()
+    
+    ev_over_ebitda_max = models.FloatField()
+    ev_over_ebitda_min = models.FloatField()
+    ev_over_ebitda_avg = models.FloatField()
+    ev_over_ebitda_upsize = models.FloatField()
+    
+    ev_sales_max = models.FloatField()
+    ev_sales_min = models.FloatField()
+    ev_sales_avg = models.FloatField()
+    ev_sales_upsize = models.FloatField()
+    
+    price_to_book_max = models.FloatField()
+    price_to_book_min = models.FloatField()
+    price_to_book_avg = models.FloatField()
+    price_to_book_upsize = models.FloatField()
+    
+    price_earnings_max = models.FloatField()
+    price_earnings_min = models.FloatField()
+    price_earnings_avg = models.FloatField()
+    price_earnings_upsize = models.FloatField()
+    
+    price_to_sales_max = models.FloatField()
+    price_to_sales_min = models.FloatField()
+    price_to_sales_avg = models.FloatField()
+    price_to_sales_upsize = models.FloatField()
+    
+    market_cap_max = models.BigIntegerField()
+    market_cap_min = models.BigIntegerField()
+    market_cap_avg = models.FloatField()
+    market_cap_upsize = models.FloatField()

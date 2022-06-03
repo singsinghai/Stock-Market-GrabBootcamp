@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import CompanyViewSet, MarketPriceViewSet, StockPriceViewSet, FinancialStatementViewSet, FinancialRatioViewSet, BusinessValuationViewSet
+from .views import CompanyViewSet, MarketPriceViewSet, StockPriceViewSet, FinancialStatementViewSet, FinancialRatioViewSet, BusinessValuationViewSet, StockValuationViewSet
 
 urlpatterns = [
     path('company', CompanyViewSet.as_view({
@@ -40,5 +40,11 @@ urlpatterns = [
     })),
     path(r'business-valuation/<slug:company>', BusinessValuationViewSet.as_view({
         'get': 'get_stock_business_valuation'
+    })),
+    path(r'industry-valuation', StockValuationViewSet.as_view({
+        'get': 'list'
+    })),
+    path(r'industry-valuation/<slug:company>', StockValuationViewSet.as_view({
+        'get': 'get_stock_valuation'
     }))
 ]

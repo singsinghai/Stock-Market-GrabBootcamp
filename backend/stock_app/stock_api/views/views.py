@@ -5,8 +5,8 @@ from django.db import connection
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
-from ..models import StockPrice, Company, MarketPrice, FinancialStatement, FinancialRatio, BusinessValuation
-from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer, FinancialStatementSerializer, FinancialRatioSerializer, BusinessValuationSerializer
+from ..models import StockPrice, Company, MarketPrice, FinancialStatement, FinancialRatio, BusinessValuation, StockValuation
+from ..serializers import CompanySerializer, MarketPriceSerializer, StockPriceSerializer, FinancialStatementSerializer, FinancialRatioSerializer, BusinessValuationSerializer, StockValuationSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from datetime import datetime
@@ -140,7 +140,7 @@ class BusinessValuationViewSet(viewsets.ReadOnlyModelViewSet):
         history = FinancialRatio.objects.raw(sql, [company])
 
         serializer = self.get_serializer(history, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data)    
 
 class StockPriceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StockPrice.objects.all()
@@ -214,3 +214,24 @@ class StockPriceViewSet(viewsets.ReadOnlyModelViewSet):
             history = StockPrice.objects.raw(sql, [company])
         serializer = self.get_serializer(history, many=True)
         return Response(serializer.data)
+
+class StockValuationViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = StockValuation.objects.all()
+    serializer_class = StockValuationSerializer
+    renderer_classes = [JSONRenderer]
+
+    def list(self, request, *args, **kwargs):
+        sql = """
+        SELECT * FROM stock_api_stockvaluation
+        """
+        queryset = StockValuation.objects.raw(sql)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def get_stock_valuation(self, request, company=None):
+        sql = """
+        SELECT * FROM stock_api_stockvaluation WHERE company_id = %s
+        """
+        queryset = StockValuation.objects.raw(sql, [company])
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data) 

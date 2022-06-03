@@ -31,3 +31,8 @@ class BusinessValuationSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusinessValuation
         fields = "__all__"
+        
+class StockValuationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StockValuation
+        fields = "__all__"
